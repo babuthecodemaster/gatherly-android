@@ -26,6 +26,7 @@ export default function ServerSidebar({ servers, selectedServerId, onServerSelec
         variant="ghost"
         size="icon"
         className="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl cosmic-glow p-0"
+        onClick={() => onServerSelect("default-server")}
         data-testid="button-home"
       >
         <Rocket className="w-6 h-6 text-white" />
@@ -68,6 +69,10 @@ export default function ServerSidebar({ servers, selectedServerId, onServerSelec
         variant="ghost"
         size="icon"
         className="server-icon w-12 h-12 bg-gray-700 rounded-2xl hover:bg-cosmic-blue transition-colors p-0"
+        onClick={() => {
+          // TODO: Open create server dialog
+          console.log("Add server clicked");
+        }}
         data-testid="button-add-server"
       >
         <Plus className="w-6 h-6 text-cosmic-gray hover:text-white" />

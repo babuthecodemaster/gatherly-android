@@ -6,8 +6,8 @@ interface MembersSidebarProps {
 }
 
 export default function MembersSidebar({ members }: MembersSidebarProps) {
-  const onlineMembers = members.filter(member => member.user.status === "online");
-  const offlineMembers = members.filter(member => member.user.status === "offline");
+  const onlineMembers = members.filter(member => member.user?.status === "online");
+  const offlineMembers = members.filter(member => member.user?.status === "offline");
 
   const mockStatuses = [
     "Playing Stellaris",
@@ -53,16 +53,16 @@ export default function MembersSidebar({ members }: MembersSidebarProps) {
             >
               <div className="relative">
                 <UserAvatar
-                  src={member.user.avatar}
-                  fallback={member.user.username[0].toUpperCase()}
+                  src={member.user.avatar || undefined}
+                  fallback={member.user.username?.[0]?.toUpperCase() || "U"}
                   className="w-8 h-8"
                 />
                 <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
               </div>
               <div className="flex-1 min-w-0">
-                <div className={`text-sm font-medium truncate ${getRoleColor(member.role)} group-hover:text-cosmic-blue`}>
+                <div className={`text-sm font-medium truncate ${getRoleColor(member.role || "member")} group-hover:text-cosmic-blue`}>
                   {member.user.username}
-                  {member.role !== "member" && (
+                  {member.role && member.role !== "member" && (
                     <span className="ml-1 text-xs bg-cosmic-blue px-1 py-0.5 rounded text-white">
                       {member.role.toUpperCase()}
                     </span>
@@ -90,8 +90,8 @@ export default function MembersSidebar({ members }: MembersSidebarProps) {
                 >
                   <div className="relative">
                     <UserAvatar
-                      src={member.user.avatar}
-                      fallback={member.user.username[0].toUpperCase()}
+                      src={member.user.avatar || undefined}
+                      fallback={member.user.username?.[0]?.toUpperCase() || "U"}
                       className="w-8 h-8 grayscale"
                     />
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-gray-500 rounded-full border-2 border-cosmic-navy"></div>

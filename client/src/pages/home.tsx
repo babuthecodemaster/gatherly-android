@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 import ServerSidebar from "@/components/layout/server-sidebar";
 import ChannelSidebar from "@/components/layout/channel-sidebar";
 import ChatArea from "@/components/layout/chat-area";
 import MembersSidebar from "@/components/layout/members-sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { mockServers, getServerWithChannels } from "@/lib/mock-data";
 import type { ServerWithChannels } from "@shared/schema";
 
 export default function HomePage() {
@@ -13,32 +13,12 @@ export default function HomePage() {
   const [showMobileChannels, setShowMobileChannels] = useState(false);
   const isMobile = useIsMobile();
 
-  const { data: servers = [] } = useQuery({
-    queryKey: ["/api/servers"],
-    queryFn: async () => {
-      const response = await fetch("/api/servers", {
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch servers");
-      return response.json();
-    },
-  });
-
-  const { data: currentServer } = useQuery({
-    queryKey: ["/api/servers", selectedServerId],
-    queryFn: async () => {
-      const response = await fetch(`/api/servers/${selectedServerId}`, {
-        credentials: "include",
-      });
-      if (!response.ok) throw new Error("Failed to fetch server");
-      return response.json();
-    },
-    enabled: !!selectedServerId,
-  });
+  const servers = mockServers;
+  const currentServer = getServerWithChannels(selectedServerId);
 
   // Auto-select first available channel when server changes
   useEffect(() => {
-    if (currentServer?.channels?.length > 0) {
+    if (currentServer?.channels && currentServer.channels.length > 0) {
       setSelectedChannelId(currentServer.channels[0].id);
     }
   }, [currentServer]);

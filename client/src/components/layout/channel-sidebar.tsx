@@ -102,6 +102,10 @@ export default function ChannelSidebar({
                   key={channel.id}
                   variant="ghost"
                   className="w-full justify-start px-2 py-1 h-auto text-cosmic-gray hover:text-white hover:bg-gray-800"
+                  onClick={() => {
+                    // TODO: Implement voice channel joining
+                    console.log("Joining voice channel:", channel.name);
+                  }}
                   data-testid={`button-voice-channel-${channel.id}`}
                 >
                   <Volume2 className="w-4 h-4 mr-3" />
@@ -135,6 +139,10 @@ export default function ChannelSidebar({
               variant="ghost" 
               size="icon"
               className="w-6 h-6 hover:bg-gray-700"
+              onClick={() => {
+                // TODO: Toggle mute
+                console.log("Toggle mute");
+              }}
               data-testid="button-mute"
             >
               <Mic className="w-4 h-4 text-cosmic-gray" />
@@ -143,6 +151,10 @@ export default function ChannelSidebar({
               variant="ghost" 
               size="icon"
               className="w-6 h-6 hover:bg-gray-700"
+              onClick={() => {
+                // TODO: Toggle deafen
+                console.log("Toggle deafen");
+              }}
               data-testid="button-deafen"
             >
               <Headphones className="w-4 h-4 text-cosmic-gray" />

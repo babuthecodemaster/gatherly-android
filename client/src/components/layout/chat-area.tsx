@@ -80,6 +80,10 @@ export default function ChatArea({ server, channelId, onToggleMobileChannels }: 
             variant="ghost"
             size="icon"
             className="text-cosmic-gray hover:text-white"
+            onClick={() => {
+              // TODO: Toggle member list
+              console.log("Toggle member list");
+            }}
             data-testid="button-member-list"
           >
             <Users className="w-5 h-5" />
@@ -88,6 +92,10 @@ export default function ChatArea({ server, channelId, onToggleMobileChannels }: 
             variant="ghost"
             size="icon"
             className="text-cosmic-gray hover:text-white"
+            onClick={() => {
+              // TODO: Open search
+              console.log("Open search");
+            }}
             data-testid="button-search"
           >
             <Search className="w-5 h-5" />
@@ -96,6 +104,10 @@ export default function ChatArea({ server, channelId, onToggleMobileChannels }: 
             variant="ghost"
             size="icon"
             className="text-cosmic-gray hover:text-white"
+            onClick={() => {
+              // TODO: Show mentions
+              console.log("Show mentions");
+            }}
             data-testid="button-mentions"
           >
             <AtSign className="w-5 h-5" />
@@ -104,6 +116,10 @@ export default function ChatArea({ server, channelId, onToggleMobileChannels }: 
             variant="ghost"
             size="icon"
             className="text-cosmic-gray hover:text-white"
+            onClick={() => {
+              // TODO: Open help
+              console.log("Open help");
+            }}
             data-testid="button-help"
           >
             <HelpCircle className="w-5 h-5" />

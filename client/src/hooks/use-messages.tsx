@@ -1,7 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import type { MessageWithAuthor } from "@shared/schema";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { getChannelMessages, mockUser } from "@/lib/mock-data";
 import { useToast } from "@/hooks/use-toast";
+import type { MessageWithAuthor } from "@shared/schema";
 
 interface SendMessageData {
   content: string;
@@ -9,33 +10,29 @@ interface SendMessageData {
 }
 
 export function useMessages(channelId: string) {
-  const queryClient = useQueryClient();
   const { toast } = useToast();
-
-  const { data: messages = [], isLoading, error } = useQuery({
-    queryKey: ["/api/channels", channelId, "messages"],
-    queryFn: async () => {
-      const response = await fetch(`/api/channels/${channelId}/messages`, {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch messages");
-      }
-      return response.json();
-    },
-    refetchInterval: 3000, // Poll for new messages every 3 seconds
-    enabled: !!channelId,
-  });
+  const [messages, setMessages] = useState<MessageWithAuthor[]>(() => 
+    getChannelMessages(channelId)
+  );
 
   const sendMessage = useMutation({
     mutationFn: async (messageData: SendMessageData) => {
-      const response = await apiRequest("POST", `/api/channels/${channelId}/messages`, messageData);
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["/api/channels", channelId, "messages"],
-      });
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      const newMessage: MessageWithAuthor = {
+        id: `msg-${Date.now()}`,
+        content: messageData.content,
+        authorId: mockUser.id,
+        channelId: channelId,
+        attachments: messageData.attachments || [],
+        reactions: [],
+        createdAt: new Date(),
+        author: mockUser,
+      };
+      
+      setMessages(prev => [...prev, newMessage]);
+      return newMessage;
     },
     onError: (error: any) => {
       toast({
@@ -47,9 +44,9 @@ export function useMessages(channelId: string) {
   });
 
   return {
-    messages: messages as MessageWithAuthor[],
-    isLoading,
-    error,
+    messages,
+    isLoading: false,
+    error: null,
     sendMessage: sendMessage.mutateAsync,
     isMessageSending: sendMessage.isPending,
   };
