@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0 0% 4%);
+  --foreground: hsl(0 0% 100%);
+  --card: hsl(220 13% 11%);
+  --card-foreground: hsl(0 0% 95%);
+  --popover: hsl(220 13% 11%);
+  --popover-foreground: hsl(0 0% 95%);
+  --primary: hsl(203 88% 53%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(220 13% 11%);
+  --secondary-foreground: hsl(0 0% 95%);
+  --muted: hsl(220 13% 15%);
+  --muted-foreground: hsl(0 0% 63%);
+  --accent: hsl(220 13% 15%);
+  --accent-foreground: hsl(203 88% 53%);
+  --destructive: hsl(356 91% 54%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(220 13% 20%);
+  --input: hsl(220 13% 15%);
+  --ring: hsl(203 88% 53%);
+  --cosmic-black: hsl(0 0% 4%);
+  --cosmic-navy: hsl(220 13% 11%);
+  --cosmic-blue: hsl(203 88% 53%);
+  --cosmic-purple: hsl(280 87% 65%);
+  --cosmic-gray: hsl(0 0% 63%);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(0 0% 4%);
+  --foreground: hsl(0 0% 100%);
+  --card: hsl(220 13% 11%);
+  --card-foreground: hsl(0 0% 95%);
+  --popover: hsl(220 13% 11%);
+  --popover-foreground: hsl(0 0% 95%);
+  --primary: hsl(203 88% 53%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(220 13% 11%);
+  --secondary-foreground: hsl(0 0% 95%);
+  --muted: hsl(220 13% 15%);
+  --muted-foreground: hsl(0 0% 63%);
+  --accent: hsl(220 13% 15%);
+  --accent-foreground: hsl(203 88% 53%);
+  --destructive: hsl(356 91% 54%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(220 13% 20%);
+  --input: hsl(220 13% 15%);
+  --ring: hsl(203 88% 53%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-cosmic-black text-white font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .nebula-bg {
+    background: radial-gradient(ellipse at center, rgba(157, 78, 221, 0.1) 0%, rgba(58, 134, 255, 0.05) 50%, transparent 70%);
+  }
+  
+  .cosmic-glow {
+    box-shadow: 0 0 10px rgba(58, 134, 255, 0.3);
+  }
+  
+  .cosmic-glow-purple {
+    box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+  }
+  
+  .glow-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .glow-hover:hover {
+    box-shadow: 0 0 15px rgba(58, 134, 255, 0.5);
+  }
+  
+  .server-icon {
+    transition: all 0.3s ease;
+  }
+  
+  .server-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.6);
+  }
+  
+  .message-glow {
+    transition: all 0.2s ease;
+  }
+  
+  .message-glow:hover {
+    background: rgba(58, 134, 255, 0.1);
+  }
+  
+  .cosmic-text-gradient {
+    background: linear-gradient(135deg, #3A86FF 0%, #9D4EDD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .cosmic-bg-gradient {
+    background: linear-gradient(135deg, rgba(58, 134, 255, 0.1) 0%, rgba(157, 78, 221, 0.1) 100%);
+  }
+  
+  .scrollbar-cosmic {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(58, 134, 255, 0.3) rgba(18, 24, 38, 0.5);
+  }
+  
+  .scrollbar-cosmic::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-cosmic::-webkit-scrollbar-track {
+    background: rgba(18, 24, 38, 0.5);
+  }
+  
+  .scrollbar-cosmic::-webkit-scrollbar-thumb {
+    background-color: rgba(58, 134, 255, 0.3);
+    border-radius: 20px;
+  }
+  
+  .scrollbar-cosmic::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(58, 134, 255, 0.5);
+  }
+}
+
+@keyframes pulse-glow {
+  0% { 
+    box-shadow: 0 0 5px var(--cosmic-blue); 
+  }
+  100% { 
+    box-shadow: 0 0 20px var(--cosmic-blue), 0 0 30px var(--cosmic-purple); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-2px); 
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

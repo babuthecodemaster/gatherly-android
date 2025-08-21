@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nebula_background"
+    android:padding="@dimen/spacing_lg"
+    tools:context=".ui.auth.AuthActivity">
+
+    <!-- Logo and Title -->
+    <LinearLayout
+        android:id="@+id/logoContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/authCard"
+        app:layout_constraintVertical_bias="0.3">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/avatar_xlarge"
+            android:layout_height="@dimen/avatar_xlarge"
+            android:layout_marginEnd="@dimen/spacing_md"
+            app:cardBackgroundColor="@color/cosmic_blue"
+            app:cardCornerRadius="@dimen/radius_lg"
+            app:cardElevation="@dimen/shadow_large">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_xl"
+                android:layout_height="@dimen/spacing_xl"
+                android:layout_gravity="center"
+                android:contentDescription="@string/cd_server_icon"
+                android:src="@drawable/ic_rocket"
+                android:tint="@color/cosmic_white" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_header"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/cosmic_text_gradient" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/subtitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_subtitle"
+        android:textColor="@color/cosmic_gray"
+        android:textSize="@dimen/text_size_lg"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoContainer"
+        android:layout_marginTop="@dimen/spacing_md" />
+
+    <!-- Auth Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/authCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xxl"
+        app:cardBackgroundColor="@color/cosmic_navy"
+        app:cardCornerRadius="@dimen/radius_xl"
+        app:cardElevation="@dimen/shadow_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_xl">
+
+            <!-- Header -->
+            <TextView
+                android:id="@+id/cardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/join_cosmic_community"
+                android:textColor="@color/cosmic_white"
+                android:textSize="@dimen/text_size_xl"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/spacing_sm" />
+
+            <TextView
+                android:id="@+id/cardSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/connect_space_enthusiasts"
+                android:textColor="@color/cosmic_gray"
+                android:textSize="@dimen/text_size_md"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/spacing_lg" />
+
+            <!-- Tab Layout -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cosmic_dark_gray"
+                app:tabTextColor="@color/cosmic_gray"
+                app:tabSelectedTextColor="@color/cosmic_white"
+                app:tabIndicatorColor="@color/cosmic_blue"
+                app:tabMode="fixed"
+                android:layout_marginBottom="@dimen/spacing_lg">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <!-- ViewPager for Login/Register forms -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Decorative elements -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/spacing_xl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authCard">
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="@dimen/spacing_md"
+            android:background="@drawable/cosmic_dot"
+            android:backgroundTint="@color/cosmic_blue" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="@dimen/spacing_md"
+            android:background="@drawable/cosmic_dot"
+            android:backgroundTint="@color/cosmic_purple" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/cosmic_dot"
+            android:backgroundTint="@color/cosmic_blue" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

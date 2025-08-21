@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/cosmic_black">
+
+    <!-- Channels Sidebar -->
+    <LinearLayout
+        android:id="@+id/channelsSidebar"
+        android:layout_width="@dimen/channel_sidebar_width"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/cosmic_navy">
+
+        <!-- Server Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md"
+            android:background="@color/cosmic_dark_gray">
+
+            <TextView
+                android:id="@+id/serverNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cosmic_gaming_hub"
+                android:textColor="@color/cosmic_white"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_expand_more"
+                android:tint="@color/cosmic_gray"
+                android:contentDescription="@string/cd_menu" />
+
+        </LinearLayout>
+
+        <!-- Channels List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/channelsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/cosmic_navy"
+            android:padding="@dimen/spacing_sm" />
+
+        <!-- User Panel -->
+        <LinearLayout
+            android:id="@+id/userPanel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_panel_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md"
+            android:background="@color/cosmic_dark_gray">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userAvatarImage"
+                android:layout_width="@dimen/avatar_medium"
+                android:layout_height="@dimen/avatar_medium"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:src="@drawable/avatar_background" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/usernameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CosmicExplorer"
+                    android:textColor="@color/cosmic_white"
+                    android:textSize="@dimen/text_size_md"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/userIdText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="#1234"
+                    android:textColor="@color/cosmic_gray"
+                    android:textSize="@dimen/text_size_sm" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/settingsButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/cd_settings"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Chat Area -->
+    <LinearLayout
+        android:id="@+id/chatArea"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/cosmic_black">
+
+        <!-- Chat Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md"
+            android:background="@color/cosmic_navy">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:src="@drawable/ic_hash"
+                android:tint="@color/cosmic_gray" />
+
+            <TextView
+                android:id="@+id/channelNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="general"
+                android:textColor="@color/cosmic_white"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:src="@drawable/ic_people"
+                    android:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/members"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <ImageView
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/search"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Messages List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/messagesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/cosmic_black"
+            android:padding="@dimen/spacing_md" />
+
+        <!-- Message Input -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_md"
+            android:background="@color/cosmic_navy">
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:background="@drawable/cosmic_input_background"
+                android:hint="@string/type_message"
+                android:textColor="@color/cosmic_white"
+                android:textColorHint="@color/cosmic_gray"
+                android:padding="@dimen/spacing_md" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sendButton"
+                style="@style/Widget.Gatherly.Button.Primary"
+                android:layout_width="@dimen/button_height"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/send_message"
+                android:textSize="@dimen/text_size_sm"
+                app:cornerRadius="@dimen/radius_md" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Members Sidebar -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/membersRecyclerView"
+        android:layout_width="@dimen/members_sidebar_width"
+        android:layout_height="match_parent"
+        android:background="@color/cosmic_navy"
+        android:padding="@dimen/spacing_sm"
+        android:visibility="gone" />
+
+</LinearLayout>

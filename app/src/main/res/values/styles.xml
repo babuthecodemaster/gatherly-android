@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Base application theme -->
+    <style name="Theme.Gatherly" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cosmic_blue</item>
+        <item name="colorPrimaryVariant">@color/cosmic_purple</item>
+        <item name="colorOnPrimary">@color/cosmic_white</item>
+        <item name="colorSecondary">@color/cosmic_purple</item>
+        <item name="colorSecondaryVariant">@color/cosmic_blue</item>
+        <item name="colorOnSecondary">@color/cosmic_white</item>
+        <item name="android:colorBackground">@color/cosmic_black</item>
+        <item name="colorOnBackground">@color/cosmic_white</item>
+        <item name="colorSurface">@color/cosmic_navy</item>
+        <item name="colorOnSurface">@color/cosmic_white</item>
+        <item name="colorError">@color/cosmic_button_danger</item>
+        <item name="colorOnError">@color/cosmic_white</item>
+        <item name="android:statusBarColor">@color/cosmic_black</item>
+        <item name="android:navigationBarColor">@color/cosmic_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    
+    <!-- Splash theme -->
+    <style name="Theme.Gatherly.Splash" parent="Theme.Gatherly">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    
+    <!-- Auth theme -->
+    <style name="Theme.Gatherly.Auth" parent="Theme.Gatherly">
+        <item name="android:windowBackground">@drawable/nebula_background</item>
+    </style>
+    
+    <!-- Main theme -->
+    <style name="Theme.Gatherly.Main" parent="Theme.Gatherly">
+        <item name="android:windowBackground">@color/cosmic_black</item>
+    </style>
+    
+    <!-- Text Styles -->
+    <style name="TextAppearance.Gatherly.Title" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/cosmic_white</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.Gatherly.Subtitle" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/cosmic_gray</item>
+        <item name="android:textSize">@dimen/text_size_md</item>
+    </style>
+    
+    <style name="TextAppearance.Gatherly.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/cosmic_white</item>
+        <item name="android:textSize">@dimen/text_size_md</item>
+    </style>
+    
+    <style name="TextAppearance.Gatherly.Caption" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/cosmic_gray</item>
+        <item name="android:textSize">@dimen/text_size_sm</item>
+    </style>
+    
+    <style name="TextAppearance.Gatherly.Username" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/cosmic_blue</item>
+        <item name="android:textSize">@dimen/text_size_md</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Button Styles -->
+    <style name="Widget.Gatherly.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/cosmic_blue</item>
+        <item name="android:textColor">@color/cosmic_white</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="android:elevation">@dimen/shadow_medium</item>
+    </style>
+    
+    <style name="Widget.Gatherly.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/cosmic_purple</item>
+        <item name="android:textColor">@color/cosmic_purple</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+    </style>
+    
+    <style name="Widget.Gatherly.Button.Ghost" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/cosmic_gray</item>
+        <item name="rippleColor">@color/cosmic_blue_20</item>
+    </style>
+    
+    <!-- Input Styles -->
+    <style name="Widget.Gatherly.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/cosmic_input_background</item>
+        <item name="boxStrokeColor">@color/cosmic_input_border</item>
+        <item name="boxStrokeColorStateList">@color/input_stroke_color</item>
+        <item name="android:textColorHint">@color/cosmic_gray</item>
+        <item name="boxCornerRadiusTopStart">@dimen/radius_md</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_md</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_md</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_md</item>
+    </style>
+    
+    <style name="Widget.Gatherly.EditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/cosmic_white</item>
+        <item name="android:textColorHint">@color/cosmic_gray</item>
+    </style>
+    
+    <!-- Card Styles -->
+    <style name="Widget.Gatherly.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/cosmic_navy</item>
+        <item name="cardCornerRadius">@dimen/radius_lg</item>
+        <item name="cardElevation">@dimen/shadow_large</item>
+        <item name="strokeColor">@color/cosmic_border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+    
+    <!-- Toolbar Styles -->
+    <style name="Widget.Gatherly.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@color/cosmic_navy</item>
+        <item name="titleTextColor">@color/cosmic_white</item>
+        <item name="subtitleTextColor">@color/cosmic_gray</item>
+        <item name="android:elevation">@dimen/shadow_medium</item>
+    </style>
+    
+    <!-- RecyclerView Styles -->
+    <style name="Widget.Gatherly.RecyclerView">
+        <item name="android:background">@color/cosmic_black</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
+        <item name="android:scrollbarTrackVertical">@drawable/scrollbar_track</item>
+    </style>
+    
+    <!-- Avatar Styles -->
+    <style name="Widget.Gatherly.Avatar">
+        <item name="android:background">@drawable/avatar_background</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    
+    <!-- Status Indicator Styles -->
+    <style name="Widget.Gatherly.StatusIndicator">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:background">@drawable/status_indicator</item>
+    </style>
+    
+    <!-- Cosmic Glow Effect -->
+    <style name="Widget.Gatherly.CosmicGlow">
+        <item name="android:background">@drawable/cosmic_glow_background</item>
+        <item name="android:elevation">@dimen/shadow_large</item>
+    </style>
+    
+    <!-- Navigation Styles -->
+    <style name="Widget.Gatherly.Navigation" parent="Widget.Material3.NavigationView">
+        <item name="android:background">@color/cosmic_navy</item>
+        <item name="itemTextColor">@color/cosmic_white</item>
+        <item name="itemIconTint">@color/cosmic_blue</item>
+    </style>
+    
+    <!-- Tab Styles -->
+    <style name="Widget.Gatherly.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/cosmic_navy</item>
+        <item name="tabTextColor">@color/cosmic_gray</item>
+        <item name="tabSelectedTextColor">@color/cosmic_white</item>
+        <item name="tabIndicatorColor">@color/cosmic_blue</item>
+        <item name="tabIndicatorHeight">3dp</item>
+    </style>
+    
+    <!-- Floating Action Button -->
+    <style name="Widget.Gatherly.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="backgroundTint">@color/cosmic_blue</item>
+        <item name="tint">@color/cosmic_white</item>
+        <item name="android:elevation">@dimen/shadow_large</item>
+    </style>
+    
+</resources>
