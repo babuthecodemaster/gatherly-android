@@ -134,11 +134,11 @@ export default function ChannelSidebar({
               <div className="text-xs text-cosmic-gray">#{user.id.slice(-4)}</div>
             </div>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex items-center space-x-1">
             <Button 
               variant="ghost" 
               size="icon"
-              className="w-6 h-6 hover:bg-gray-700"
+              className="w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md"
               onClick={() => {
                 // TODO: Toggle mute
                 console.log("Toggle mute");
@@ -150,7 +150,7 @@ export default function ChannelSidebar({
             <Button 
               variant="ghost" 
               size="icon"
-              className="w-6 h-6 hover:bg-gray-700"
+              className="w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md"
               onClick={() => {
                 // TODO: Toggle deafen
                 console.log("Toggle deafen");
@@ -162,7 +162,7 @@ export default function ChannelSidebar({
             <Button 
               variant="ghost" 
               size="icon"
-              className="w-6 h-6 hover:bg-gray-700"
+              className="w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md"
               onClick={logout}
               data-testid="button-logout"
             >

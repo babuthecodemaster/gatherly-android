@@ -20,28 +20,28 @@ export default function ServerSidebar({ servers, selectedServerId, onServerSelec
   ];
 
   return (
-    <div className="w-16 lg:w-20 bg-cosmic-navy flex flex-col items-center py-4 space-y-4 border-r border-gray-800 nebula-bg">
-      {/* Home Button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl cosmic-glow p-0"
-        onClick={() => onServerSelect("default-server")}
-        data-testid="button-home"
-      >
-        <Rocket className="w-6 h-6 text-white" />
-      </Button>
+    <div className="w-16 lg:w-20 bg-cosmic-navy flex flex-col items-center py-4 border-r border-gray-800 nebula-bg">
+      <div className="flex flex-col items-center space-y-3">
+        {/* Home Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl cosmic-glow p-0 flex items-center justify-center"
+          onClick={() => onServerSelect("default-server")}
+          data-testid="button-home"
+        >
+          <Rocket className="w-6 h-6 text-white" />
+        </Button>
 
-      <div className="w-8 h-0.5 bg-gray-600 rounded-full"></div>
+        <div className="w-8 h-0.5 bg-gray-600 rounded-full"></div>
 
-      {/* Server Icons */}
-      <div className="space-y-3">
+        {/* Server Icons */}
         {servers.map((server, index) => (
           <Button
             key={server.id}
             variant="ghost"
             size="icon"
-            className={`server-icon w-12 h-12 rounded-2xl overflow-hidden p-0 ${
+            className={`server-icon w-12 h-12 rounded-2xl overflow-hidden p-0 flex items-center justify-center ${
               selectedServerId === server.id ? 'ring-2 ring-cosmic-blue' : ''
             } glow-hover`}
             onClick={() => onServerSelect(server.id)}
@@ -62,21 +62,21 @@ export default function ServerSidebar({ servers, selectedServerId, onServerSelec
             )}
           </Button>
         ))}
-      </div>
 
-      {/* Add Server Button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="server-icon w-12 h-12 bg-gray-700 rounded-2xl hover:bg-cosmic-blue transition-colors p-0"
-        onClick={() => {
-          // TODO: Open create server dialog
-          console.log("Add server clicked");
-        }}
-        data-testid="button-add-server"
-      >
-        <Plus className="w-6 h-6 text-cosmic-gray hover:text-white" />
-      </Button>
+        {/* Add Server Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="server-icon w-12 h-12 bg-gray-700 rounded-2xl hover:bg-cosmic-blue transition-colors p-0 flex items-center justify-center"
+          onClick={() => {
+            // TODO: Open create server dialog
+            console.log("Add server clicked");
+          }}
+          data-testid="button-add-server"
+        >
+          <Plus className="w-6 h-6 text-cosmic-gray hover:text-white" />
+        </Button>
+      </div>
     </div>
   );
 }
