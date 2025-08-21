@@ -20,6 +20,10 @@ const registerSchema = z.object({
   username: z.string().min(3, "Username must be at least 3 characters"),
   email: z.string().email("Please enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Password must be at least 6 characters"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -44,6 +48,7 @@ export default function AuthPage() {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -213,6 +218,25 @@ export default function AuthPage() {
                     {registerForm.formState.errors.password && (
                       <p className="text-red-400 text-sm">
                         {registerForm.formState.errors.password.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="register-confirm-password" className="text-white">
+                      Confirm Password
+                    </Label>
+                    <Input
+                      id="register-confirm-password"
+                      type="password"
+                      placeholder="••••••••"
+                      className="bg-gray-800 border-gray-600 text-white placeholder-cosmic-gray focus:border-cosmic-purple"
+                      data-testid="input-register-confirm-password"
+                      {...registerForm.register("confirmPassword")}
+                    />
+                    {registerForm.formState.errors.confirmPassword && (
+                      <p className="text-red-400 text-sm">
+                        {registerForm.formState.errors.confirmPassword.message}
                       </p>
                     )}
                   </div>
