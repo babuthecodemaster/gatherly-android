@@ -1,42 +1,36 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { authApi, type LoginCredentials, type RegisterCredentials } from "@/lib/auth";
-import type { UserSession } from "@shared/schema";
+import { useMutation } from "@tanstack/react-query";
+import { firebaseAuth, type FirebaseAuthUser } from "@/lib/firebase-auth";
 import { useToast } from "@/hooks/use-toast";
 
 interface AuthContextType {
-  user: UserSession | null;
+  user: FirebaseAuthUser | null;
   isLoading: boolean;
-  login: (credentials: LoginCredentials) => Promise<void>;
-  register: (credentials: RegisterCredentials) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  register: (username: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserSession | null>(null);
-  const queryClient = useQueryClient();
+  const [user, setUser] = useState<FirebaseAuthUser | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  const { data: currentUser, isLoading } = useQuery({
-    queryKey: ["/api/auth/me"],
-    queryFn: authApi.getCurrentUser,
-    retry: false,
-    refetchOnMount: true,
-  });
-
   useEffect(() => {
-    if (currentUser) {
-      setUser(currentUser);
-    }
-  }, [currentUser]);
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+      setUser(user);
+      setIsLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const loginMutation = useMutation({
-    mutationFn: authApi.login,
-    onSuccess: (userData) => {
-      setUser(userData);
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+    mutationFn: ({ email, password }: { email: string; password: string }) => 
+      firebaseAuth.login(email, password),
+    onSuccess: () => {
       toast({
         title: "Welcome back!",
         description: "Successfully logged in to Cosmic Chat.",
@@ -52,10 +46,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   const registerMutation = useMutation({
-    mutationFn: authApi.register,
-    onSuccess: (userData) => {
-      setUser(userData);
-      queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+    mutationFn: ({ username, email, password }: { username: string; email: string; password: string }) => 
+      firebaseAuth.register(username, email, password),
+    onSuccess: () => {
       toast({
         title: "Welcome to Cosmic Chat!",
         description: "Your account has been created successfully.",
@@ -71,10 +64,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   const logoutMutation = useMutation({
-    mutationFn: authApi.logout,
+    mutationFn: firebaseAuth.logout,
     onSuccess: () => {
-      setUser(null);
-      queryClient.clear();
       toast({
         title: "Logged out",
         description: "See you in the cosmos!",
@@ -82,12 +73,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const login = async (credentials: LoginCredentials) => {
-    await loginMutation.mutateAsync(credentials);
+  const login = async (email: string, password: string) => {
+    await loginMutation.mutateAsync({ email, password });
   };
 
-  const register = async (credentials: RegisterCredentials) => {
-    await registerMutation.mutateAsync(credentials);
+  const register = async (username: string, email: string, password: string) => {
+    await registerMutation.mutateAsync({ username, email, password });
   };
 
   const logout = async () => {

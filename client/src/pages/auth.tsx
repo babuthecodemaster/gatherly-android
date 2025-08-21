@@ -49,7 +49,7 @@ export default function AuthPage() {
 
   const onLogin = async (data: LoginFormData) => {
     try {
-      await login(data);
+      await login(data.email, data.password);
       setLocation("/");
     } catch (error) {
       // Error handled by auth hook
@@ -58,7 +58,7 @@ export default function AuthPage() {
 
   const onRegister = async (data: RegisterFormData) => {
     try {
-      await registerUser(data);
+      await registerUser(data.username, data.email, data.password);
       setLocation("/");
     } catch (error) {
       // Error handled by auth hook
