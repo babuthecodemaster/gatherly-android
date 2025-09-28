@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/cd_server_icon"
                 android:src="@drawable/ic_rocket"
-                android:tint="@color/cosmic_white" />
+                app:tint="@color/cosmic_white" />
 
         </androidx.cardview.widget.CardView>
 
@@ -134,7 +134,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minHeight="350dp" />
 
         </LinearLayout>
 

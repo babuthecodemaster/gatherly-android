@@ -32,7 +32,7 @@ export default function MessageItem({ message }: MessageItemProps) {
   return (
     <div className="flex items-start space-x-3 message-glow p-3 rounded-lg" data-testid={`message-${message.id}`}>
       <UserAvatar
-        src={message.author.avatar}
+        src={message.author.avatar || undefined}
         fallback={message.author.username[0].toUpperCase()}
         className="w-10 h-10 cosmic-glow flex-shrink-0"
         data-testid={`avatar-${message.author.id}`}

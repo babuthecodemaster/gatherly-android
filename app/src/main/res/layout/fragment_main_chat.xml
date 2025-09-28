@@ -37,7 +37,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_expand_more"
-                android:tint="@color/cosmic_gray"
+                app:tint="@color/cosmic_gray"
                 android:contentDescription="@string/cd_menu" />
 
         </LinearLayout>
@@ -98,7 +98,7 @@
                 android:layout_width="@dimen/touch_target_small"
                 android:layout_height="@dimen/touch_target_small"
                 android:src="@drawable/ic_settings"
-                android:tint="@color/cosmic_gray"
+                app:tint="@color/cosmic_gray"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/cd_settings"
                 android:clickable="true"
@@ -131,7 +131,7 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="@dimen/spacing_sm"
                 android:src="@drawable/ic_hash"
-                android:tint="@color/cosmic_gray" />
+                app:tint="@color/cosmic_gray" />
 
             <TextView
                 android:id="@+id/channelNameText"
@@ -153,7 +153,7 @@
                     android:layout_height="@dimen/touch_target_small"
                     android:layout_marginEnd="@dimen/spacing_sm"
                     android:src="@drawable/ic_people"
-                    android:tint="@color/cosmic_gray"
+                    app:tint="@color/cosmic_gray"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/members"
                     android:clickable="true"
@@ -163,7 +163,7 @@
                     android:layout_width="@dimen/touch_target_small"
                     android:layout_height="@dimen/touch_target_small"
                     android:src="@drawable/ic_search"
-                    android:tint="@color/cosmic_gray"
+                    app:tint="@color/cosmic_gray"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/search"
                     android:clickable="true"

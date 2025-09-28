@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatherly - Cosmic Chat Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cosmic-black': '#0A0A0A',
+                        'cosmic-navy': '#121826',
+                        'cosmic-blue': '#3A86FF',
+                        'cosmic-purple': '#9D4EDD',
+                        'cosmic-gray': '#A0A0A0'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%': { boxShadow: '0 0 5px #3A86FF' },
+                            '100%': { boxShadow: '0 0 20px #3A86FF, 0 0 30px #9D4EDD' }
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-2px)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .nebula-bg {
+            background: radial-gradient(ellipse at center, rgba(157, 78, 221, 0.1) 0%, rgba(58, 134, 255, 0.05) 50%, transparent 70%);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(58, 134, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        .cosmic-glow {
+            box-shadow: 0 0 10px rgba(58, 134, 255, 0.3);
+        }
+        .message-glow:hover {
+            background: rgba(58, 134, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        .server-icon {
+            transition: all 0.3s ease;
+        }
+        .server-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-cosmic-black text-white font-sans overflow-hidden">
+    <!-- @COMPONENT: MainLayout -->
+    <div class="flex h-screen">
+        <!-- Server Sidebar -->
+        <!-- @COMPONENT: ServerSidebar -->
+        <div class="w-16 lg:w-20 bg-cosmic-navy flex flex-col items-center py-4 space-y-4 border-r border-gray-800 nebula-bg">
+            <!-- Logo/Home Button -->
+            <div class="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl flex items-center justify-center cursor-pointer cosmic-glow">
+                <i class="fas fa-rocket text-xl text-white"></i>
+            </div>
+            
+            <div class="w-8 h-0.5 bg-gray-600 rounded-full"></div>
+            
+            <!-- Server Icons -->
+            <div data-mock="true" class="space-y-3">
+                <!-- @MAP: servers.map(server => ( -->
+                <!-- Gaming server with space theme -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Cosmic Gaming Server" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                
+                <!-- Nebula community server -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Nebula Community" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                
+                <!-- Space exploration server -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Space Exploration" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                
+                <!-- Galaxy server -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Galaxy Community" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                
+                <!-- Cosmic art server -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Cosmic Art Community" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                
+                <!-- Aurora server -->
+                <div class="server-icon w-12 h-12 rounded-2xl overflow-hidden cursor-pointer glow-hover">
+                    <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                         alt="Aurora Watchers" class="w-full h-full object-cover" data-mock-image="true"/>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+            
+            <!-- Add Server Button -->
+            <div class="server-icon w-12 h-12 bg-gray-700 rounded-2xl flex items-center justify-center cursor-pointer hover:bg-cosmic-blue transition-colors">
+                <i class="fas fa-plus text-cosmic-gray hover:text-white"></i>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: ServerSidebar -->
+
+        <!-- Channels Sidebar -->
+        <!-- @COMPONENT: ChannelSidebar -->
+        <div class="hidden md:flex w-60 bg-cosmic-navy flex-col border-r border-gray-800">
+            <!-- Server Header -->
+            <div class="h-16 border-b border-gray-800 flex items-center px-4 cursor-pointer hover:bg-gray-800 transition-colors">
+                <h2 class="font-semibold text-lg" data-bind="currentServer.name">Cosmic Gaming Hub</h2>
+                <i class="fas fa-chevron-down ml-auto text-cosmic-gray"></i>
+            </div>
+            
+            <!-- Channels List -->
+            <div class="flex-1 overflow-y-auto p-2">
+                <!-- Text Channels -->
+                <div class="mb-6">
+                    <div class="flex items-center text-cosmic-gray text-xs font-semibold uppercase tracking-wider mb-2 px-2">
+                        <i class="fas fa-chevron-down text-xs mr-2"></i>
+                        Text Channels
+                    </div>
+                    
+                    <div data-mock="true" class="space-y-1">
+                        <!-- @MAP: textChannels.map(channel => ( -->
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-hashtag text-xs mr-3"></i>
+                            <span class="text-sm" data-bind="channel.name">general</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer bg-gray-800 text-white">
+                            <i class="fas fa-hashtag text-xs mr-3 text-cosmic-blue"></i>
+                            <span class="text-sm">cosmic-gaming</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-hashtag text-xs mr-3"></i>
+                            <span class="text-sm">space-exploration</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-hashtag text-xs mr-3"></i>
+                            <span class="text-sm">nebula-art</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-hashtag text-xs mr-3"></i>
+                            <span class="text-sm">announcements</span>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+                
+                <!-- Voice Channels -->
+                <div class="mb-6">
+                    <div class="flex items-center text-cosmic-gray text-xs font-semibold uppercase tracking-wider mb-2 px-2">
+                        <i class="fas fa-chevron-down text-xs mr-2"></i>
+                        Voice Channels
+                    </div>
+                    
+                    <div data-mock="true" class="space-y-1">
+                        <!-- @MAP: voiceChannels.map(channel => ( -->
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-volume-up text-xs mr-3"></i>
+                            <span class="text-sm">General Voice</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-volume-up text-xs mr-3"></i>
+                            <span class="text-sm">Gaming Session</span>
+                        </div>
+                        
+                        <div class="flex items-center px-2 py-1 rounded cursor-pointer hover:bg-gray-800 text-cosmic-gray hover:text-white group">
+                            <i class="fas fa-volume-up text-xs mr-3"></i>
+                            <span class="text-sm">Study Hall</span>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Panel -->
+            <div class="h-16 border-t border-gray-800 flex items-center px-3">
+                <div class="flex items-center flex-1">
+                    <!-- User avatar with cosmic glow -->
+                    <div class="w-8 h-8 rounded-full overflow-hidden mr-3 cosmic-glow">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="User Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-medium" data-bind="user.username">CosmicExplorer</div>
+                        <div class="text-xs text-cosmic-gray">#2847</div>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="w-6 h-6 flex items-center justify-center hover:bg-gray-700 rounded">
+                        <i class="fas fa-microphone text-cosmic-gray text-sm"></i>
+                    </button>
+                    <button class="w-6 h-6 flex items-center justify-center hover:bg-gray-700 rounded">
+                        <i class="fas fa-headphones text-cosmic-gray text-sm"></i>
+                    </button>
+                    <button class="w-6 h-6 flex items-center justify-center hover:bg-gray-700 rounded">
+                        <i class="fas fa-cog text-cosmic-gray text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: ChannelSidebar -->
+
+        <!-- Main Chat Area -->
+        <!-- @COMPONENT: ChatArea -->
+        <div class="flex-1 flex flex-col bg-cosmic-black">
+            <!-- Chat Header -->
+            <div class="h-16 border-b border-gray-800 flex items-center px-6 bg-cosmic-navy">
+                <div class="flex items-center">
+                    <button class="md:hidden mr-4 text-cosmic-gray hover:text-white">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <i class="fas fa-hashtag text-cosmic-gray mr-2"></i>
+                    <h3 class="font-semibold text-lg" data-bind="currentChannel.name">cosmic-gaming</h3>
+                    <div class="ml-4 h-6 w-px bg-gray-600"></div>
+                    <p class="ml-4 text-sm text-cosmic-gray">Discuss your favorite space games and cosmic adventures</p>
+                </div>
+                <div class="ml-auto flex items-center space-x-4">
+                    <button class="text-cosmic-gray hover:text-white transition-colors">
+                        <i class="fas fa-user-friends"></i>
+                    </button>
+                    <button class="text-cosmic-gray hover:text-white transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="text-cosmic-gray hover:text-white transition-colors">
+                        <i class="fas fa-at"></i>
+                    </button>
+                    <button class="text-cosmic-gray hover:text-white transition-colors">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Messages Area -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4" data-mock="true">
+                <!-- @MAP: messages.map(message => ( -->
+                
+                <!-- Welcome Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Cosmic space explorer avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="SpaceWanderer Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-cosmic-blue" data-bind="message.author">SpaceWanderer</span>
+                            <span class="text-xs text-cosmic-gray">Today at 2:30 PM</span>
+                        </div>
+                        <div class="text-sm">
+                            Welcome to the cosmic gaming hub! 🚀 Anyone playing Stellaris lately? The new nebula update is incredible!
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🚀</span>
+                                <span class="text-xs">3</span>
+                            </button>
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-purple">
+                                <span class="text-lg">✨</span>
+                                <span class="text-xs">7</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gaming Discussion Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Cosmic gamer avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="NebulaHunter Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-cosmic-purple" data-bind="message.author">NebulaHunter</span>
+                            <span class="text-xs text-cosmic-gray">Today at 2:35 PM</span>
+                        </div>
+                        <div class="text-sm">
+                            @SpaceWanderer Yes! The nebula mechanics are so immersive. I've been building a ringworld around a pulsar - the visual effects are breathtaking 🌌
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🌌</span>
+                                <span class="text-xs">5</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Discussion Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Female tech enthusiast avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://pixabay.com/get/g0725e77171489f5658bd3d0eb98e15435b4ad9e18bdde106862a0f1a332dc445edb15f0c4e5082267704caaa75604ff09d8060569a5256c7acba94c0cb09b148_1280.jpg" 
+                             alt="CosmicCoder Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-cosmic-blue" data-bind="message.author">CosmicCoder</span>
+                            <span class="text-xs text-cosmic-gray">Today at 2:42 PM</span>
+                        </div>
+                        <div class="text-sm">
+                            Has anyone tried the new No Man's Sky expedition? The procedural nebula generation is fascinating from a technical standpoint 💻
+                        </div>
+                        <div class="bg-cosmic-navy p-3 rounded-lg mt-2 border border-gray-700">
+                            <!-- Embedded cosmic game screenshot -->
+                            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300" 
+                                 alt="Cosmic Game Screenshot" class="w-full h-auto rounded" data-mock-image="true"/>
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-purple">
+                                <span class="text-lg">💻</span>
+                                <span class="text-xs">2</span>
+                            </button>
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🌠</span>
+                                <span class="text-xs">4</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Art Sharing Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Creative artist avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="StarArtist Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-cosmic-purple" data-bind="message.author">StarArtist</span>
+                            <span class="text-xs text-cosmic-gray">Today at 3:15 PM</span>
+                        </div>
+                        <div class="text-sm mb-2">
+                            Just finished this cosmic landscape inspired by our gaming sessions! What do you all think? ✨
+                        </div>
+                        <div class="bg-cosmic-navy p-3 rounded-lg border border-gray-700">
+                            <!-- Cosmic art piece -->
+                            <img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                                 alt="Cosmic Art Creation" class="w-full h-auto rounded" data-mock-image="true"/>
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🎨</span>
+                                <span class="text-xs">12</span>
+                            </button>
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-purple">
+                                <span class="text-lg">✨</span>
+                                <span class="text-xs">8</span>
+                            </button>
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🌟</span>
+                                <span class="text-xs">15</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Event Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Community manager avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="GalaxyMod Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-yellow-400" data-bind="message.author">GalaxyMod</span>
+                            <span class="bg-cosmic-blue text-xs px-2 py-0.5 rounded text-white">MOD</span>
+                            <span class="text-xs text-cosmic-gray">Today at 4:00 PM</span>
+                        </div>
+                        <div class="text-sm">
+                            🎮 <strong>Event Alert!</strong> Join us this Saturday for our Cosmic Gaming Tournament! Prizes include rare in-game items and cosmic-themed artwork. Who's in? React with 🚀 to join!
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-blue">
+                                <span class="text-lg">🚀</span>
+                                <span class="text-xs">24</span>
+                            </button>
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-purple">
+                                <span class="text-lg">🎮</span>
+                                <span class="text-xs">18</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Message -->
+                <div class="flex items-start space-x-3 message-glow p-3 rounded-lg">
+                    <!-- Space enthusiast avatar -->
+                    <div class="w-10 h-10 rounded-full overflow-hidden cosmic-glow flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                             alt="VoidExplorer Avatar" class="w-full h-full object-cover" data-mock-image="true"/>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-baseline space-x-2 mb-1">
+                            <span class="font-medium text-cosmic-blue" data-bind="message.author">VoidExplorer</span>
+                            <span class="text-xs text-cosmic-gray">Today at 4:25 PM</span>
+                        </div>
+                        <div class="text-sm">
+                            Count me in for the tournament! I've been practicing my cosmic strategy all week 🌌⚔️
+                        </div>
+                        <div class="flex items-center mt-2 space-x-4">
+                            <button class="flex items-center space-x-1 text-cosmic-gray hover:text-cosmic-purple">
+                                <span class="text-lg">⚔️</span>
+                                <span class="text-xs">6</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+            
+            <!-- Message Input -->
+            <!-- @COMPONENT: MessageInput -->
+            <div class="p-4 border-t border-gray-800">
+                <div class="bg-cosmic-navy rounded-lg p-3 cosmic-glow">
+                    <div class="flex items-center space-x-3">
+                        <button class="text-cosmic-gray hover:text-cosmic-blue transition-colors">
+                            <i class="fas fa-plus-circle text-xl"></i>
+                        </button>
+                        <div class="flex-1">
+                            <input 
+                                type="text" 
+                                placeholder="Message #cosmic-gaming" 
+                                class="w-full bg-transparent text-white placeholder-cosmic-gray focus:outline-none"
+                                data-implementation="Handle message sending on Enter key"
+                            />
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-cosmic-gray hover:text-cosmic-purple transition-colors">
+                                <i class="fas fa-gift"></i>
+                            </button>
+                            <button class="text-cosmic-gray hover:text-cosmic-purple transition-colors">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button class="text-cosmic-gray hover:text-cosmic-blue transition-colors">
+                                <i class="fas fa-smile"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: MessageInput -->
+        </div>
+        <!-- @END_COMPONENT: ChatArea -->
+
+        <!-- Online Members Sidebar -->
+        <!-- @COMPONENT: MembersSidebar -->
+        <div class="hidden xl:flex w-60 bg-cosmic-navy flex-col border-l border-gray-800">
+            <div class="p-4">
+                <h3 class="text-sm font-semibold text-cosmic-gray uppercase tracking-wider mb-4">Online — 8</h3>
+                
+                <div data-mock="true" class="space-y-3">
+                    <!-- @MAP: onlineMembers.map(member => ( -->
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Space adventurer member -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="CosmicExplorer" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-blue">CosmicExplorer</div>
+                            <div class="text-xs text-cosmic-gray">Playing Stellaris</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Female space scientist -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://pixabay.com/get/g6b5b7b4fd0d2684c7a31316ffdd0366d5117913e733723bacb0e8cd25c863d2dacfea761b44475f92e25b5c088e6c18788a285dbf2016eda1dc0e3e189f5ebc5_1280.jpg" 
+                                     alt="CosmicCoder" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-purple">CosmicCoder</div>
+                            <div class="text-xs text-cosmic-gray">Coding nebula shaders</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Space artist -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="StarArtist" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-blue">StarArtist</div>
+                            <div class="text-xs text-cosmic-gray">Digital painting</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Male astronomer -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="NebulaHunter" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-purple">NebulaHunter</div>
+                            <div class="text-xs text-cosmic-gray">Exploring galaxies</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Space engineer -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="GalaxyMod" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-yellow-400 group-hover:text-yellow-300">GalaxyMod</div>
+                            <div class="text-xs text-cosmic-gray">Moderating</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Space explorer -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="VoidExplorer" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-blue">VoidExplorer</div>
+                            <div class="text-xs text-cosmic-gray">No Man's Sky</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Female space pilot -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="SpaceWanderer" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-purple">SpaceWanderer</div>
+                            <div class="text-xs text-cosmic-gray">Elite Dangerous</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3 p-2 rounded hover:bg-gray-800 cursor-pointer group">
+                        <div class="relative">
+                            <!-- Another space enthusiast -->
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400" 
+                                     alt="StarNavigator" class="w-full h-full object-cover" data-mock-image="true"/>
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-cosmic-navy"></div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white group-hover:text-cosmic-blue">StarNavigator</div>
+                            <div class="text-xs text-cosmic-gray">Kerbal Space Program</div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: MembersSidebar -->
+    </div>
+    <!-- @END_COMPONENT: MainLayout -->
+
+    <!-- Mobile Navigation Overlay (Hidden by default) -->
+    <!-- @COMPONENT: MobileNavOverlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden hidden" id="mobileNavOverlay">
+        <div class="w-80 bg-cosmic-navy h-full">
+            <!-- Mobile Channel List (Same as desktop but adjusted for mobile) -->
+            <div class="h-16 border-b border-gray-800 flex items-center px-4 justify-between">
+                <h2 class="font-semibold text-lg">Cosmic Gaming Hub</h2>
+                <button id="closeMobileNav" class="text-cosmic-gray hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- Channel content would be the same as desktop sidebar -->
+        </div>
+    </div>
+    <!-- @END_COMPONENT: MobileNavOverlay -->
+
+    <script>
+        (function() {
+            // TODO: Implement real-time messaging functionality
+            // TODO: Add message polling system
+            // TODO: Implement user authentication
+            // TODO: Add server/channel switching logic
+            // TODO: Implement emoji picker functionality
+            // TODO: Add file upload handling
+            // TODO: Implement search functionality
+            // TODO: Add voice channel connection logic
+            
+            // Mobile navigation functionality
+            const mobileNavToggle = document.querySelector('.md\\:hidden');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+            const closeMobileNav = document.getElementById('closeMobileNav');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    mobileNavOverlay.classList.remove('hidden');
+                });
+            }
+            
+            if (closeMobileNav) {
+                closeMobileNav.addEventListener('click', function() {
+                    mobileNavOverlay.classList.add('hidden');
+                });
+            }
+            
+            // Close mobile nav when clicking outside
+            mobileNavOverlay?.addEventListener('click', function(e) {
+                if (e.target === mobileNavOverlay) {
+                    mobileNavOverlay.classList.add('hidden');
+                }
+            });
+            
+            // Simulate cosmic glow animation on message hover
+            const messages = document.querySelectorAll('.message-glow');
+            messages.forEach(message => {
+                message.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 15px rgba(58, 134, 255, 0.2)';
+                });
+                message.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Auto-scroll to bottom of messages (simulating real-time updates)
+            const messagesContainer = document.querySelector('.overflow-y-auto');
+            if (messagesContainer) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+            
+            // Simulate periodic message updates (for demo purposes)
+            setInterval(() => {
+                // TODO: Replace with actual real-time messaging system
+                console.log('Checking for new messages...');
+            }, 5000);
+            
+        })();
+    </script>
+</body>
+</html>

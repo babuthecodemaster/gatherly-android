@@ -1,63 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Cosmic Theme Colors based on Nebula theme -->
-    
-    <!-- Background Colors -->
-    <color name="cosmic_black">#0A0A0A</color>
-    <color name="cosmic_navy">#121826</color>
-    <color name="cosmic_dark_gray">#1A1D29</color>
-    
-    <!-- Primary Accent Colors -->
-    <color name="cosmic_blue">#3A86FF</color>
-    <color name="cosmic_purple">#9D4EDD</color>
+    <!-- Cosmic Theme Colors -->
+    <color name="cosmic_background">#0A0A0F</color>
+    <color name="cosmic_surface">#1A1A2E</color>
+    <color name="cosmic_accent">#6C63FF</color>
+    <color name="cosmic_accent_variant">#5A52D5</color>
     
     <!-- Text Colors -->
+    <color name="cosmic_text_primary">#FFFFFF</color>
+    <color name="cosmic_text_secondary">#B8B8CC</color>
+    <color name="cosmic_text_tertiary">#8A8A9E</color>
+    
+    <!-- UI Elements -->
+    <color name="cosmic_divider">#2A2A3E</color>
+    <color name="cosmic_error">#FF6B6B</color>
+    <color name="cosmic_success">#4ECDC4</color>
+    <color name="cosmic_warning">#FFE66D</color>
+    
+    <!-- Additional Cosmic Colors -->
     <color name="cosmic_white">#FFFFFF</color>
-    <color name="cosmic_gray">#A0A0A0</color>
-    <color name="cosmic_muted">#6B7280</color>
-    
-    <!-- Status Colors -->
-    <color name="cosmic_online">#10B981</color>
-    <color name="cosmic_away">#F59E0B</color>
-    <color name="cosmic_busy">#EF4444</color>
-    <color name="cosmic_offline">#6B7280</color>
-    
-    <!-- Gradient Colors -->
-    <color name="cosmic_gradient_start">#3A86FF</color>
-    <color name="cosmic_gradient_end">#9D4EDD</color>
-    
-    <!-- Card and Surface Colors -->
-    <color name="cosmic_card">#1E293B</color>
-    <color name="cosmic_surface">#334155</color>
-    <color name="cosmic_border">#475569</color>
+    <color name="cosmic_blue">#4A90E2</color>
+    <color name="cosmic_purple">#6C63FF</color>
+    <color name="cosmic_gray">#8A8A9E</color>
+    <color name="cosmic_navy">#1A1A2E</color>
+    <color name="cosmic_black">#0A0A0F</color>
     
     <!-- Button Colors -->
-    <color name="cosmic_button_primary">#3A86FF</color>
-    <color name="cosmic_button_secondary">#9D4EDD</color>
-    <color name="cosmic_button_danger">#EF4444</color>
+    <color name="cosmic_button_danger">#FF6B6B</color>
     
     <!-- Input Colors -->
-    <color name="cosmic_input_background">#1E293B</color>
-    <color name="cosmic_input_border">#475569</color>
-    <color name="cosmic_input_focus">#3A86FF</color>
+    <color name="cosmic_input_background">#2A2A3E</color>
+    <color name="cosmic_input_border">#4A4A5E</color>
     
-    <!-- Transparency Colors -->
-    <color name="cosmic_black_50">#800A0A0A</color>
-    <color name="cosmic_black_80">#CC0A0A0A</color>
-    <color name="cosmic_blue_20">#333A86FF</color>
-    <color name="cosmic_purple_20">#339D4EDD</color>
+    <!-- Border Colors -->
+    <color name="cosmic_border">#3A3A4E</color>
     
-    <!-- System Colors -->
-    <color name="colorPrimary">@color/cosmic_blue</color>
-    <color name="colorPrimaryVariant">@color/cosmic_purple</color>
-    <color name="colorOnPrimary">@color/cosmic_white</color>
-    <color name="colorSecondary">@color/cosmic_purple</color>
-    <color name="colorSecondaryVariant">@color/cosmic_blue</color>
-    <color name="colorOnSecondary">@color/cosmic_white</color>
-    <color name="colorBackground">@color/cosmic_black</color>
-    <color name="colorOnBackground">@color/cosmic_white</color>
-    <color name="colorSurface">@color/cosmic_navy</color>
-    <color name="colorOnSurface">@color/cosmic_white</color>
-    <color name="colorError">#EF4444</color>
-    <color name="colorOnError">@color/cosmic_white</color>
+    <!-- Transparent Colors -->
+    <color name="cosmic_blue_20">#334A90E2</color>
+    
+    <!-- Additional Missing Colors -->
+    <color name="cosmic_input_focus">#6C63FF</color>
+    <color name="cosmic_muted">#6A6A7E</color>
+    <color name="cosmic_dark_gray">#4A4A5E</color>
+    <color name="error_background">#FF6B6B</color>
+    <color name="error_border">#FF5252</color>
+    
+    <!-- Standard Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    
+    <!-- Material Design Colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
 </resources>

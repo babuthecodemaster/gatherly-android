@@ -50,22 +50,27 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  const isDevelopment =
+    process.env.NODE_ENV?.trim() === "development" ||
+    app.get("env") === "development";
+  log(
+    `Environment: ${process.env.NODE_ENV}, Express env: ${app.get(
+      "env"
+    )}, isDevelopment: ${isDevelopment}`
+  );
+
+  if (isDevelopment) {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
+  // Other ports are firewalled. Default to 3000 if not specified.
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
+  const port = parseInt(process.env.PORT || "3000", 10);
+  server.listen(port, () => {
     log(`serving on port ${port}`);
   });
 })();

@@ -84,6 +84,7 @@
     <string name="delete">Delete</string>
     <string name="reply">Reply</string>
     <string name="react">React</string>
+    <string name="retry">Try Again</string>
     
     <!-- Errors -->
     <string name="error_network">Network error. Please check your connection.</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@string/cd_server_icon"
                 android:src="@drawable/ic_rocket"
-                android:tint="@color/cosmic_white" />
+                app:tint="@color/cosmic_white" />
 
         </androidx.cardview.widget.CardView>
 

@@ -25,10 +25,15 @@ export function useMessages(channelId: string) {
         content: messageData.content,
         authorId: mockUser.id,
         channelId: channelId,
-        attachments: messageData.attachments || [],
-        reactions: [],
+        attachments: messageData.attachments || null,
+        reactions: null,
         createdAt: new Date(),
-        author: mockUser,
+        author: {
+          ...mockUser,
+          password: "hashed-password",
+          createdAt: new Date(),
+          avatar: mockUser.avatar || null,
+        },
       };
       
       setMessages(prev => [...prev, newMessage]);

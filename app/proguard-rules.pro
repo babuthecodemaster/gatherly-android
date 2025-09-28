@@ -59,3 +59,8 @@
    void set*(***);
    *** get*();
 }
+
+# SLF4J rules
+-dontwarn org.slf4j.**
+-keep class org.slf4j.** { *; }
+-keepclassmembers class org.slf4j.** { *; }

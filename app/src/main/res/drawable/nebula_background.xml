@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-        android:angle="135"
-        android:startColor="@color/cosmic_black"
-        android:centerColor="#151B2E"
-        android:endColor="@color/cosmic_navy"
-        android:type="radial"
-        android:gradientRadius="800dp" />
+        android:angle="45"
+        android:startColor="@color/cosmic_background"
+        android:centerColor="@color/cosmic_navy"
+        android:endColor="@color/cosmic_surface"
+        android:type="linear" />
 </shape>

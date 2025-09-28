@@ -189,10 +189,10 @@ export function getServerWithChannels(serverId: string) {
   if (!server) return null;
 
   const channels = mockChannels.filter(c => c.serverId === serverId);
-  const members = mockMembers.filter(m => m.serverId === serverId).map(member => ({
-    ...member,
-    user: mockMessages.find(msg => msg.authorId === member.userId)?.author,
-  })).filter(member => member.user);
+  const members = mockMembers.filter(m => m.serverId === serverId).map(member => {
+    const user = mockMessages.find(msg => msg.authorId === member.userId)?.author;
+    return user ? { ...member, user } : null;
+  }).filter((member): member is ServerMember & { user: any } => member !== null);
   
   return {
     ...server,

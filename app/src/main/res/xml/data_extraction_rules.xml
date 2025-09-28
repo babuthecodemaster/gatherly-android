@@ -6,6 +6,7 @@
 <data-extraction-rules>
     <cloud-backup>
         <include domain="file" path="."/>
+        <include domain="database" path="."/>
         <exclude domain="file" path="no_backup/"/>
         <exclude domain="database" path="secret.db"/>
     </cloud-backup>

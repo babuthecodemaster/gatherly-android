@@ -145,6 +145,7 @@ export class MemStorage implements IStorage {
       id, 
       status: "offline",
       createdAt: new Date(),
+      avatar: insertUser.avatar || null,
     };
     this.users.set(id, user);
     return user;
@@ -196,6 +197,8 @@ export class MemStorage implements IStorage {
       ...insertServer, 
       id, 
       createdAt: new Date(),
+      description: insertServer.description || null,
+      icon: insertServer.icon || null,
     };
     this.servers.set(id, server);
     return server;
@@ -217,6 +220,8 @@ export class MemStorage implements IStorage {
       ...insertChannel, 
       id, 
       createdAt: new Date(),
+      description: insertChannel.description || null,
+      type: (insertChannel.type as "text" | "voice") || "text",
     };
     this.channels.set(id, channel);
     return channel;
@@ -244,6 +249,8 @@ export class MemStorage implements IStorage {
       ...insertMessage, 
       id, 
       createdAt: new Date(),
+      attachments: insertMessage.attachments || null,
+      reactions: insertMessage.reactions || null,
     };
     this.messages.set(id, message);
     
@@ -273,6 +280,7 @@ export class MemStorage implements IStorage {
       ...insertMember, 
       id, 
       joinedAt: new Date(),
+      role: (insertMember.role as "owner" | "admin" | "moderator" | "member") || "member",
     };
     this.serverMembers.set(id, member);
     return member;

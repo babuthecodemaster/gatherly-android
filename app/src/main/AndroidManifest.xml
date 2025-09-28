@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.cosmic.gatherly">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +15,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".GatherlyApplication"
+        android:name=".MinimalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,9 +30,23 @@
         <!-- Splash Screen Activity -->
         <activity
             android:name=".ui.splash.SplashActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Gatherly.Splash" />
+
+        <!-- Minimal Splash Activity (Crash-proof) -->
+        <activity
+            android:name=".ui.splash.MinimalSplashActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+
+        <!-- Ultra Minimal Splash Activity (Absolutely crash-proof) -->
+        <activity
+            android:name=".ui.splash.UltraMinimalSplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Gatherly.Splash">
+            android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -44,9 +61,41 @@
             android:theme="@style/Theme.Gatherly.Auth"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Firebase Authentication Activity -->
+        <activity
+            android:name=".ui.auth.FirebaseAuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Gatherly.Auth"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Minimal Firebase Auth Activity (Crash-proof) -->
+        <activity
+            android:name=".ui.auth.MinimalFirebaseAuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Ultra Minimal Auth Activity (No Firebase dependencies) -->
+        <activity
+            android:name=".ui.auth.UltraMinimalAuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Main Chat Activity -->
         <activity
             android:name=".ui.main.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Gatherly.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Simple Main Activity (Firebase Auth Demo) -->
+        <activity
+            android:name=".ui.main.SimpleMainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Gatherly.Main"

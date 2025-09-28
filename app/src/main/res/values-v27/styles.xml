@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- Base application theme for API 27+ -->
+    <style name="Theme.Gatherly" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cosmic_blue</item>
+        <item name="colorPrimaryVariant">@color/cosmic_purple</item>
+        <item name="colorOnPrimary">@color/cosmic_white</item>
+        <item name="colorSecondary">@color/cosmic_purple</item>
+        <item name="colorSecondaryVariant">@color/cosmic_blue</item>
+        <item name="colorOnSecondary">@color/cosmic_white</item>
+        <item name="android:colorBackground">@color/cosmic_black</item>
+        <item name="colorOnBackground">@color/cosmic_white</item>
+        <item name="colorSurface">@color/cosmic_navy</item>
+        <item name="colorOnSurface">@color/cosmic_white</item>
+        <item name="colorError">@color/cosmic_button_danger</item>
+        <item name="colorOnError">@color/cosmic_white</item>
+        <item name="android:statusBarColor">@color/cosmic_black</item>
+        <item name="android:navigationBarColor">@color/cosmic_black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    
+</resources>
