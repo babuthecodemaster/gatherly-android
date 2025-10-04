@@ -3,104 +3,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@color/cosmic_black">
 
-    <!-- Channels Sidebar -->
+    <!-- Channel Header -->
     <LinearLayout
-        android:id="@+id/channelsSidebar"
-        android:layout_width="@dimen/channel_sidebar_width"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/cosmic_navy">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_md"
+        android:background="@color/cosmic_navy"
+        android:elevation="@dimen/shadow_small">
 
-        <!-- Server Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md"
-            android:background="@color/cosmic_dark_gray">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            android:src="@drawable/ic_hash"
+            app:tint="@color/cosmic_gray" />
 
-            <TextView
-                android:id="@+id/serverNameText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/cosmic_gaming_hub"
-                android:textColor="@color/cosmic_white"
-                android:textSize="@dimen/text_size_lg"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_expand_more"
-                app:tint="@color/cosmic_gray"
-                android:contentDescription="@string/cd_menu" />
-
-        </LinearLayout>
-
-        <!-- Channels List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/channelsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <TextView
+            android:id="@+id/channelNameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/cosmic_navy"
-            android:padding="@dimen/spacing_sm" />
+            android:text="general"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
 
-        <!-- User Panel -->
         <LinearLayout
-            android:id="@+id/userPanel"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/user_panel_height"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md"
-            android:background="@color/cosmic_dark_gray">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userAvatarImage"
-                android:layout_width="@dimen/avatar_medium"
-                android:layout_height="@dimen/avatar_medium"
-                android:layout_marginEnd="@dimen/spacing_md"
-                android:src="@drawable/avatar_background" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginEnd="@dimen/spacing_sm">
+
+                <ImageView
+                    android:id="@+id/mentionsButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:src="@drawable/ic_at"
+                    app:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/mentions"
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <TextView
-                    android:id="@+id/usernameText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CosmicExplorer"
+                    android:id="@+id/mentionsNotificationBadge"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/bg_notification_badge"
+                    android:text="2"
                     android:textColor="@color/cosmic_white"
-                    android:textSize="@dimen/text_size_md"
-                    android:textStyle="bold" />
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/userIdText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="#1234"
-                    android:textColor="@color/cosmic_gray"
-                    android:textSize="@dimen/text_size_sm" />
-
-            </LinearLayout>
+            </FrameLayout>
 
             <ImageView
-                android:id="@+id/settingsButton"
+                android:id="@+id/membersButton"
                 android:layout_width="@dimen/touch_target_small"
                 android:layout_height="@dimen/touch_target_small"
-                android:src="@drawable/ic_settings"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:src="@drawable/ic_people"
                 app:tint="@color/cosmic_gray"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/cd_settings"
+                android:contentDescription="@string/members"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <ImageView
+                android:id="@+id/searchButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:src="@drawable/ic_search"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/search"
                 android:clickable="true"
                 android:focusable="true" />
 
@@ -108,79 +99,34 @@
 
     </LinearLayout>
 
-    <!-- Chat Area -->
-    <LinearLayout
-        android:id="@+id/chatArea"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+    <!-- Messages List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/cosmic_black"
+        android:padding="@dimen/spacing_md"
+        android:clipToPadding="false" />
+
+    <!-- Message Input Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/cosmic_black">
+        android:background="@color/cosmic_navy"
+        android:elevation="@dimen/shadow_medium">
 
-        <!-- Chat Header -->
-        <LinearLayout
+        <!-- Typing Indicator (Hidden by default) -->
+        <TextView
+            android:id="@+id/typingIndicator"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="@dimen/spacing_md"
-            android:background="@color/cosmic_navy">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="@dimen/spacing_sm"
-                android:src="@drawable/ic_hash"
-                app:tint="@color/cosmic_gray" />
-
-            <TextView
-                android:id="@+id/channelNameText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="general"
-                android:textColor="@color/cosmic_white"
-                android:textSize="@dimen/text_size_lg"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:layout_marginEnd="@dimen/spacing_sm"
-                    android:src="@drawable/ic_people"
-                    app:tint="@color/cosmic_gray"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/members"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <ImageView
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:src="@drawable/ic_search"
-                    app:tint="@color/cosmic_gray"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/search"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Messages List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messagesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/cosmic_black"
-            android:padding="@dimen/spacing_md" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_sm"
+            android:text="CosmicExplorer is typing..."
+            android:textColor="@color/cosmic_text_tertiary"
+            android:textSize="@dimen/text_size_sm"
+            android:visibility="gone" />
 
         <!-- Message Input -->
         <LinearLayout
@@ -188,40 +134,66 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/spacing_md"
-            android:background="@color/cosmic_navy">
+            android:gravity="center_vertical">
 
-            <EditText
-                android:id="@+id/messageEditText"
+            <!-- Attachment Button -->
+            <ImageView
+                android:id="@+id/attachmentButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:src="@drawable/ic_add"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/cd_message_attachment" />
+
+            <!-- Message Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="@dimen/input_height"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_sm"
-                android:background="@drawable/cosmic_input_background"
-                android:hint="@string/type_message"
-                android:textColor="@color/cosmic_white"
-                android:textColorHint="@color/cosmic_gray"
-                android:padding="@dimen/spacing_md" />
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="@color/cosmic_input_background"
+                app:boxCornerRadiusTopStart="@dimen/radius_lg"
+                app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+                app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+                app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false">
 
-            <com.google.android.material.button.MaterialButton
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/messageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/type_message"
+                    android:textColor="@color/cosmic_white"
+                    android:textColorHint="@color/cosmic_gray"
+                    android:textSize="@dimen/text_size_md"
+                    android:maxLines="4"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:imeOptions="actionSend"
+                    android:background="@android:color/transparent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Send Button -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/sendButton"
-                style="@style/Widget.Gatherly.Button.Primary"
-                android:layout_width="@dimen/button_height"
-                android:layout_height="@dimen/button_height"
-                android:text="@string/send_message"
-                android:textSize="@dimen/text_size_sm"
-                app:cornerRadius="@dimen/radius_md" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_send"
+                app:tint="@color/cosmic_white"
+                app:backgroundTint="@color/cosmic_accent"
+                app:fabSize="mini"
+                app:elevation="@dimen/shadow_small"
+                android:contentDescription="@string/send_message" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Members Sidebar -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/membersRecyclerView"
-        android:layout_width="@dimen/members_sidebar_width"
-        android:layout_height="match_parent"
-        android:background="@color/cosmic_navy"
-        android:padding="@dimen/spacing_sm"
-        android:visibility="gone" />
 
 </LinearLayout>

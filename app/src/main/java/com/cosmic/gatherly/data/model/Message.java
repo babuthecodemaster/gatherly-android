@@ -8,7 +8,8 @@ public class Message {
     private String content;
     private String authorId;
     private String channelId;
-    private List<String> attachments;
+    private List<String> attachments; // Legacy attachment URLs
+    private List<FileAttachment> fileAttachments; // New structured file attachments
     private List<String> reactions;
     private Date createdAt;
     private User author; // For MessageWithAuthor
@@ -32,6 +33,16 @@ public class Message {
         this.channelId = channelId;
         this.attachments = attachments;
         this.reactions = reactions;
+        this.createdAt = new Date();
+    }
+    
+    public Message(String id, String content, String authorId, String channelId, 
+                   List<FileAttachment> fileAttachments) {
+        this.id = id;
+        this.content = content;
+        this.authorId = authorId;
+        this.channelId = channelId;
+        this.fileAttachments = fileAttachments;
         this.createdAt = new Date();
     }
 
@@ -99,6 +110,22 @@ public class Message {
     public void setAuthor(User author) {
         this.author = author;
     }
+    
+    public List<FileAttachment> getFileAttachments() {
+        return fileAttachments;
+    }
+    
+    public void setFileAttachments(List<FileAttachment> fileAttachments) {
+        this.fileAttachments = fileAttachments;
+    }
+    
+    public boolean hasFileAttachments() {
+        return fileAttachments != null && !fileAttachments.isEmpty();
+    }
+    
+    public boolean hasLegacyAttachments() {
+        return attachments != null && !attachments.isEmpty();
+    }
 
     @Override
     public String toString() {
@@ -108,6 +135,7 @@ public class Message {
                 ", authorId='" + authorId + '\'' +
                 ", channelId='" + channelId + '\'' +
                 ", createdAt=" + createdAt +
+                ", hasFileAttachments=" + hasFileAttachments() +
                 '}';
     }
 }

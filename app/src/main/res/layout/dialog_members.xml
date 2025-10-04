@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cosmic_navy"
+    android:padding="@dimen/spacing_lg">
+
+    <!-- Members Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_md">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/members"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_xl"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <ImageView
+            android:id="@+id/closeMembersButton"
+            android:layout_width="@dimen/touch_target_small"
+            android:layout_height="@dimen/touch_target_small"
+            android:src="@drawable/ic_close"
+            app:tint="@color/cosmic_gray"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_close_members"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <!-- Channel Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_lg">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="@dimen/spacing_xs"
+            android:src="@drawable/ic_hash"
+            app:tint="@color/cosmic_gray" />
+
+        <TextView
+            android:id="@+id/channelNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="general"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_sm"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+
+    <!-- Online Members Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/online_members"
+        android:textColor="@color/cosmic_gray"
+        android:textSize="@dimen/text_size_xs"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/spacing_sm"
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Members List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/membersRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false" />
+
+    <!-- Voice Channel Controls (if in voice channel) -->
+    <LinearLayout
+        android:id="@+id/voiceControlsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:padding="@dimen/spacing_md"
+        android:background="@drawable/cosmic_input_background"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voice Channel"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/spacing_sm"
+            android:fontFamily="sans-serif-medium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/muteButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:src="@drawable/ic_mic"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mute_microphone"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <ImageView
+                android:id="@+id/deafenButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:src="@drawable/ic_headphones"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/deafen_audio"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <ImageView
+                android:id="@+id/disconnectButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:src="@drawable/ic_phone_hangup"
+                app:tint="@color/cosmic_button_danger"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/disconnect_voice"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

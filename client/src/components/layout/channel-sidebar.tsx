@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Hash, Volume2, ChevronDown, Settings, Headphones, Mic, X, Menu } from "lucide-react";
 import UserAvatar from "@/components/ui/user-avatar";
+import VoiceChannelPanel from "@/components/ui/voice-channel-panel";
 import { useAuth } from "@/hooks/use-auth";
+import { useVoiceChannel } from "@/hooks/use-voice-channel";
 import type { ServerWithChannels, Channel } from "@shared/schema";
 
 interface ChannelSidebarProps {
@@ -20,6 +22,7 @@ export default function ChannelSidebar({
   onCloseMobile 
 }: ChannelSidebarProps) {
   const { user, logout } = useAuth();
+  const { voiceState, connectToVoiceChannel, toggleMute, toggleDeafen } = useVoiceChannel();
 
   if (!server) {
     return (
@@ -33,6 +36,23 @@ export default function ChannelSidebar({
 
   const textChannels = server.channels?.filter(channel => channel.type === "text") || [];
   const voiceChannels = server.channels?.filter(channel => channel.type === "voice") || [];
+
+  const handleVoiceChannelClick = async (channelId: string) => {
+    if (voiceState.channelId === channelId && voiceState.isConnected) {
+      // If already connected to this channel, do nothing or show voice panel
+      return;
+    }
+    
+    try {
+      await connectToVoiceChannel(channelId);
+    } catch (error) {
+      console.error('Failed to connect to voice channel:', error);
+    }
+  };
+
+  const getVoiceChannelName = (channelId: string) => {
+    return voiceChannels.find(channel => channel.id === channelId)?.name || 'Unknown Channel';
+  };
 
   const sidebarContent = (
     <>
@@ -67,22 +87,23 @@ export default function ChannelSidebar({
             
             <div className="space-y-1">
               {textChannels.map((channel) => (
-                <Button
-                  key={channel.id}
-                  variant="ghost"
-                  className={`w-full justify-start px-2 py-1 h-auto text-left ${
-                    selectedChannelId === channel.id 
-                      ? 'bg-gray-800 text-white' 
-                      : 'text-cosmic-gray hover:text-white hover:bg-gray-800'
-                  }`}
-                  onClick={() => onChannelSelect(channel.id)}
-                  data-testid={`button-channel-${channel.id}`}
-                >
-                  <Hash className={`w-4 h-4 mr-3 ${
-                    selectedChannelId === channel.id ? 'text-cosmic-blue' : ''
-                  }`} />
-                  <span className="text-sm">{channel.name}</span>
-                </Button>
+                <div key={channel.id} className="relative">
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start px-2 py-1 h-auto text-left transition-all duration-200 ${
+                      selectedChannelId === channel.id 
+                        ? 'bg-gray-800 text-white border-l-2 border-cosmic-blue' 
+                        : 'text-cosmic-gray hover:text-white hover:bg-gray-800 border-l-2 border-transparent'
+                    }`}
+                    onClick={() => onChannelSelect(channel.id)}
+                    data-testid={`button-channel-${channel.id}`}
+                  >
+                    <Hash className={`w-4 h-4 mr-3 transition-colors duration-200 ${
+                      selectedChannelId === channel.id ? 'text-cosmic-blue' : 'text-cosmic-gray'
+                    }`} />
+                    <span className="text-sm">{channel.name}</span>
+                  </Button>
+                </div>
               ))}
             </div>
           </div>
@@ -97,25 +118,47 @@ export default function ChannelSidebar({
             </div>
             
             <div className="space-y-1">
-              {voiceChannels.map((channel) => (
-                <Button
-                  key={channel.id}
-                  variant="ghost"
-                  className="w-full justify-start px-2 py-1 h-auto text-cosmic-gray hover:text-white hover:bg-gray-800"
-                  onClick={() => {
-                    // TODO: Implement voice channel joining
-                    console.log("Joining voice channel:", channel.name);
-                  }}
-                  data-testid={`button-voice-channel-${channel.id}`}
-                >
-                  <Volume2 className="w-4 h-4 mr-3" />
-                  <span className="text-sm">{channel.name}</span>
-                </Button>
-              ))}
+              {voiceChannels.map((channel) => {
+                const isConnected = voiceState.channelId === channel.id && voiceState.isConnected;
+                return (
+                  <div key={channel.id} className="relative">
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start px-2 py-1 h-auto transition-all duration-200 ${
+                        isConnected
+                          ? 'bg-green-900 text-green-400 border-l-2 border-green-500'
+                          : 'text-cosmic-gray hover:text-white hover:bg-gray-800 border-l-2 border-transparent'
+                      }`}
+                      onClick={() => handleVoiceChannelClick(channel.id)}
+                      data-testid={`button-voice-channel-${channel.id}`}
+                    >
+                      <Volume2 className={`w-4 h-4 mr-3 transition-colors duration-200 ${
+                        isConnected ? 'text-green-500' : 'text-cosmic-gray'
+                      }`} />
+                      <span className="text-sm">{channel.name}</span>
+                      {isConnected && (
+                        <div className="ml-auto flex items-center space-x-1">
+                          {voiceState.isMuted && (
+                            <div className="w-2 h-2 bg-red-500 rounded-full" />
+                          )}
+                          {voiceState.isDeafened && (
+                            <div className="w-2 h-2 bg-red-600 rounded-full" />
+                          )}
+                        </div>
+                      )}
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
       </div>
+
+      {/* Voice Channel Panel */}
+      {voiceState.isConnected && voiceState.channelId && (
+        <VoiceChannelPanel channelName={getVoiceChannelName(voiceState.channelId)} />
+      )}
 
       {/* User Panel */}
       {user && (
@@ -138,26 +181,24 @@ export default function ChannelSidebar({
             <Button 
               variant="ghost" 
               size="icon"
-              className="w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md"
-              onClick={() => {
-                // TODO: Toggle mute
-                console.log("Toggle mute");
-              }}
+              className={`w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md ${
+                voiceState.isConnected && voiceState.isMuted ? 'text-red-400' : 'text-cosmic-gray'
+              }`}
+              onClick={voiceState.isConnected ? toggleMute : () => console.log("Not in voice channel")}
               data-testid="button-mute"
             >
-              <Mic className="w-4 h-4 text-cosmic-gray" />
+              <Mic className="w-4 h-4" />
             </Button>
             <Button 
               variant="ghost" 
               size="icon"
-              className="w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md"
-              onClick={() => {
-                // TODO: Toggle deafen
-                console.log("Toggle deafen");
-              }}
+              className={`w-8 h-8 hover:bg-gray-700 flex items-center justify-center rounded-md ${
+                voiceState.isConnected && voiceState.isDeafened ? 'text-red-400' : 'text-cosmic-gray'
+              }`}
+              onClick={voiceState.isConnected ? toggleDeafen : () => console.log("Not in voice channel")}
               data-testid="button-deafen"
             >
-              <Headphones className="w-4 h-4 text-cosmic-gray" />
+              <Headphones className="w-4 h-4" />
             </Button>
             <Button 
               variant="ghost" 

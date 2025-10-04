@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/errorHandlerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main Content Container -->
+    <FrameLayout
+        android:id="@+id/mainContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Loading Overlay -->
+    <include
+        android:id="@+id/loadingOverlayInclude"
+        layout="@layout/include_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Error Message Bar -->
+    <include
+        android:id="@+id/errorMessageInclude"
+        layout="@layout/include_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
+
+    <!-- Network Error State -->
+    <include
+        android:id="@+id/networkErrorInclude"
+        layout="@layout/network_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- Generic Error State -->
+    <include
+        android:id="@+id/genericErrorInclude"
+        layout="@layout/error_boundary_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- Empty State -->
+    <include
+        android:id="@+id/emptyStateInclude"
+        layout="@layout/fallback_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/cosmic_black"
+    android:padding="@dimen/spacing_xl">
+
+    <!-- Error Icon -->
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="@dimen/spacing_lg"
+        android:src="@drawable/ic_error"
+        app:tint="@color/cosmic_red"
+        android:contentDescription="@string/error_icon" />
+
+    <!-- Error Title -->
+    <TextView
+        android:id="@+id/errorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_component_crashed"
+        android:textColor="@color/cosmic_white"
+        android:textSize="@dimen/text_size_xl"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/spacing_md" />
+
+    <!-- Error Message -->
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/error_component_crashed_description"
+        android:textColor="@color/cosmic_gray"
+        android:textSize="@dimen/text_size_md"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/spacing_xl"
+        android:maxLines="3"
+        android:ellipsize="end" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Retry Button -->
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_md"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/cosmic_button_background"
+            android:backgroundTint="@color/cosmic_accent"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingVertical="@dimen/spacing_md"
+            android:layout_marginEnd="@dimen/spacing_md"
+            style="@style/Widget.Material3.Button" />
+
+        <!-- Report Button -->
+        <Button
+            android:id="@+id/reportButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/report_issue"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_md"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/cosmic_input_background"
+            android:backgroundTint="@color/cosmic_surface"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingVertical="@dimen/spacing_md"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
+
+    </LinearLayout>
+
+</LinearLayout>

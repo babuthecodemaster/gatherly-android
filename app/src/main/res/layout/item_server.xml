@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_sm"
+    android:gravity="center">
+
+    <!-- Vertical line indicator (positioned on the left) -->
+    <View
+        android:id="@+id/serverIndicator"
+        android:layout_width="4dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="0dp"
+        android:background="@drawable/server_indicator_line"
+        android:backgroundTint="@color/cosmic_blue"
+        android:visibility="gone" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/serverCard"
+        android:layout_width="@dimen/server_icon_size"
+        android:layout_height="@dimen/server_icon_size"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/serverIndicator"
+        app:cardCornerRadius="@dimen/server_icon_radius"
+        app:cardElevation="@dimen/shadow_medium"
+        app:cardBackgroundColor="@color/cosmic_blue"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/serverIcon"
+            android:layout_width="@dimen/spacing_lg"
+            android:layout_height="@dimen/spacing_lg"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_rocket"
+            app:tint="@color/cosmic_white"
+            android:contentDescription="@string/cd_server_icon" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

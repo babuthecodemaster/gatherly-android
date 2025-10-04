@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <!-- Good connection -->
+        <shape android:shape="oval">
+            <solid android:color="@color/cosmic_green" />
+        </shape>
+    </item>
+    <item android:state_activated="true">
+        <!-- Poor connection -->
+        <shape android:shape="oval">
+            <solid android:color="@color/cosmic_yellow" />
+        </shape>
+    </item>
+    <item>
+        <!-- Disconnected -->
+        <shape android:shape="oval">
+            <solid android:color="@color/cosmic_red" />
+        </shape>
+    </item>
+</selector>

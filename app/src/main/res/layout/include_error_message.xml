@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/errorMessageContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/cosmic_error_background"
+    android:padding="@dimen/spacing_md"
+    android:layout_margin="@dimen/spacing_sm"
+    android:visibility="gone"
+    android:gravity="center_vertical">
+
+    <!-- Error Icon -->
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_error"
+        app:tint="@color/cosmic_red"
+        android:layout_marginEnd="@dimen/spacing_md"
+        android:contentDescription="@string/error_icon" />
+
+    <!-- Error Text -->
+    <TextView
+        android:id="@+id/errorMessageText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/error_generic"
+        android:textColor="@color/cosmic_red"
+        android:textSize="@dimen/text_size_sm"
+        android:fontFamily="sans-serif"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+    <!-- Dismiss Button -->
+    <ImageView
+        android:id="@+id/dismissErrorButton"
+        android:layout_width="@dimen/touch_target_small"
+        android:layout_height="@dimen/touch_target_small"
+        android:src="@drawable/ic_close"
+        app:tint="@color/cosmic_red"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/dismiss_error"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="@dimen/spacing_sm" />
+
+</LinearLayout>

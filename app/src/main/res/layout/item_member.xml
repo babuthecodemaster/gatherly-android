@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="@dimen/spacing_sm"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Member Avatar -->
+    <RelativeLayout
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="@dimen/spacing_sm">
+
+        <ImageView
+            android:id="@+id/memberAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_person"
+            android:background="@drawable/avatar_background"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/cd_user_avatar" />
+
+        <!-- Status Indicator -->
+        <View
+            android:id="@+id/statusIndicator"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/status_indicator"
+            android:backgroundTint="@color/cosmic_green" />
+
+    </RelativeLayout>
+
+    <!-- Member Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/memberName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CosmicExplorer"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_md"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/memberStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/member_status_coding"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_xs"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Role Badge -->
+    <TextView
+        android:id="@+id/roleBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/role_owner"
+        android:textColor="@color/cosmic_accent"
+        android:textSize="@dimen/text_size_xs"
+        android:textStyle="bold"
+        android:background="@drawable/cosmic_input_background"
+        android:paddingStart="@dimen/spacing_xs"
+        android:paddingEnd="@dimen/spacing_xs"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone"
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Voice Indicator -->
+    <ImageView
+        android:id="@+id/voiceIndicator"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="@dimen/spacing_xs"
+        android:src="@drawable/ic_mic"
+        app:tint="@color/cosmic_green"
+        android:visibility="gone"
+        android:contentDescription="Speaking" />
+
+</LinearLayout>

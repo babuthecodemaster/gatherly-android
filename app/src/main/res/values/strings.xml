@@ -42,6 +42,10 @@
     <string name="channel_beginning">This is the beginning of this cosmic channel.</string>
     <string name="loading_messages">Loading cosmic messages...</string>
     <string name="failed_send_message">Failed to send message</string>
+    <string name="message_failed">Message failed</string>
+    <string name="message_send_failed">Message Send Failed</string>
+    <string name="message_failed_description">Your message could not be sent. Please try again.</string>
+    <string name="dismiss">Dismiss</string>
     
     <!-- Servers -->
     <string name="add_server">Add Server</string>
@@ -85,6 +89,26 @@
     <string name="reply">Reply</string>
     <string name="react">React</string>
     <string name="retry">Try Again</string>
+    <string name="close">Close</string>
+    <string name="mark_all_read">Mark All Read</string>
+    <string name="clear_all">Clear All</string>
+    <string name="jump_to_message">Jump to message</string>
+    <string name="back">Back</string>
+    <string name="settings_coming_soon">Settings coming soon...</string>
+    
+    <!-- Mentions -->
+    <string name="no_mentions">No mentions yet</string>
+    <string name="no_mentions_description">When someone mentions you with @username, you\'ll see it here</string>
+    
+    <!-- Search -->
+    <string name="search_messages">Search messages</string>
+    <string name="search_placeholder">Search for messages...</string>
+    <string name="search_no_results">No messages found</string>
+    <string name="search_results_count">%1$d results found</string>
+    <string name="search_in_channel">in #%1$s</string>
+    <string name="search_clear">Clear search</string>
+    <string name="search_close">Close search</string>
+    <string name="search_shortcut_hint">Press Ctrl+K to search</string>
     
     <!-- Errors -->
     <string name="error_network">Network error. Please check your connection.</string>
@@ -93,6 +117,28 @@
     <string name="error_user_exists">User already exists</string>
     <string name="error_loading">Failed to load data</string>
     <string name="error_send_message">Failed to send message</string>
+    <string name="error_generic">Something went wrong</string>
+    <string name="error_component_crashed">Component Error</string>
+    <string name="error_component_crashed_description">A component has encountered an error and needs to be restarted.</string>
+    <string name="error_network_title">Connection Lost</string>
+    <string name="error_icon">Error icon</string>
+    <string name="network_error_icon">Network error icon</string>
+    <string name="dismiss_error">Dismiss error</string>
+    <string name="report_issue">Report Issue</string>
+    <string name="retry_connection">Retry Connection</string>
+    
+    <!-- Search Errors -->
+    <string name="search_failed">Search Failed</string>
+    <string name="search_failed_description">Unable to search messages. Please check your connection and try again.</string>
+    <string name="search_error">Search error</string>
+    <string name="searching_messages">Searching messages...</string>
+    
+    <!-- Upload Errors -->
+    <string name="upload_error">Upload error</string>
+    <string name="upload_network_error">Network error during upload</string>
+    <string name="upload_server_error">Server error during upload</string>
+    <string name="upload_timeout">Upload timed out</string>
+    <string name="upload_retry_failed">Upload retry failed</string>
     
     <!-- Success Messages -->
     <string name="success_login">Successfully logged in to Cosmic Chat</string>
@@ -107,6 +153,12 @@
     <string name="connecting">Connecting to the cosmos...</string>
     <string name="creating_identity">Creating cosmic identity...</string>
     
+    <!-- Empty States -->
+    <string name="no_data_available">No Data Available</string>
+    <string name="no_data_description">Unable to load content. Please check your connection and try again.</string>
+    <string name="empty_state_icon">Empty state icon</string>
+    <string name="refresh">Refresh</string>
+    
     <!-- Content Descriptions -->
     <string name="cd_server_icon">Server icon</string>
     <string name="cd_user_avatar">User avatar</string>
@@ -117,12 +169,40 @@
     <string name="cd_menu">Menu</string>
     <string name="cd_search">Search</string>
     <string name="cd_settings">Settings</string>
+    <string name="cd_close_members">Close members sidebar</string>
+    <string name="cd_file_icon">File icon</string>
+    <string name="cd_download_file">Download file</string>
+    <string name="cd_image_attachment">Image attachment</string>
+    
+    <!-- File Upload -->
+    <string name="upload_file">Upload File</string>
+    <string name="uploading_file">Uploading File</string>
+    <string name="upload_progress">Upload Progress</string>
+    <string name="upload_cancelled">Upload Cancelled</string>
+    <string name="upload_failed">Upload Failed</string>
+    <string name="upload_success">Upload Successful</string>
+    <string name="file_too_large">File too large</string>
+    <string name="file_type_not_allowed">File type not allowed</string>
+    <string name="select_file">Select File</string>
+    <string name="cancel_upload">Cancel Upload</string>
     
     <!-- Placeholder Text -->
     <string name="placeholder_email">cosmic@explorer.com</string>
     <string name="placeholder_username">CosmicExplorer</string>
     <string name="placeholder_server_name">My Cosmic Server</string>
     <string name="placeholder_channel_name">stellar-discussion</string>
+    
+    <!-- Voice Controls -->
+    <string name="mute_microphone">Mute microphone</string>
+    <string name="unmute_microphone">Unmute microphone</string>
+    <string name="deafen_audio">Deafen audio</string>
+    <string name="undeafen_audio">Undeafen audio</string>
+    <string name="disconnect_voice">Disconnect from voice channel</string>
+    <string name="voice_connected">Connected to voice channel</string>
+    <string name="voice_disconnected">Disconnected from voice channel</string>
+    <string name="voice_connection_poor">Poor voice connection</string>
+    <string name="voice_connection_good">Good voice connection</string>
+    <string name="voice_connection_excellent">Excellent voice connection</string>
     
     <!-- Time Formats -->
     <string name="time_now">now</string>
@@ -131,4 +211,63 @@
     <string name="time_days_ago">%1$dd ago</string>
     <string name="time_yesterday">Yesterday</string>
     <string name="time_today">Today</string>
+    
+    <!-- Enhanced Error Handling -->
+    <string name="error_operation_failed">Operation Failed</string>
+    <string name="error_network_fallback">Network unavailable. Using offline mode.</string>
+    <string name="error_search_fallback">Search unavailable. Please try again later.</string>
+    <string name="error_upload_fallback">Upload unavailable. Please try again later.</string>
+    <string name="error_load_fallback">Unable to load data. Using cached content.</string>
+    <string name="error_generic_fallback">Service temporarily unavailable. Please try again.</string>
+    
+    <!-- Loading States -->
+    <string name="loading_network">Connecting to network...</string>
+    <string name="syncing_data">Syncing data...</string>
+    <string name="uploading_file_progress">Uploading %1$s...</string>
+    <string name="searching_for">Searching for "%1$s"...</string>
+    <string name="search_retrying">Retrying search... (Attempt %1$d)</string>
+    
+    <!-- Retry Messages -->
+    <string name="retry_upload">Retry Upload</string>
+    <string name="retry_search">Retry Search</string>
+    <string name="retry_loading">Retry Loading</string>
+    <string name="retrying_operation">Retrying operation...</string>
+    <string name="max_retries_exceeded">Maximum retry attempts exceeded</string>
+    
+    <!-- Offline Mode -->
+    <string name="offline_mode_message">You are currently offline. Some features may be limited.</string>
+    <string name="connection_retry_message">Attempting to reconnect...</string>
+    <string name="data_sync_pending_message">Data will sync when connection is restored.</string>
+    
+    <!-- Component Error Boundaries -->
+    <string name="component_error_title">Component Error</string>
+    <string name="component_error_message">This component encountered an error and needs to be restarted.</string>
+    <string name="component_retry">Restart Component</string>
+    <string name="component_report">Report Error</string>
+    
+    <!-- File Upload Enhanced -->
+    <string name="upload_starting">Starting upload...</string>
+    <string name="upload_retrying">Retrying upload... (Attempt %1$d)</string>
+    <string name="upload_connection_error">Connection error during upload</string>
+    <string name="upload_server_unavailable">Upload server unavailable</string>
+    <string name="upload_file_too_large">File exceeds size limit</string>
+    <string name="upload_invalid_file_type">Invalid file type</string>
+    <string name="upload_permission_denied">Permission denied for upload</string>
+    
+    <!-- Search Enhanced -->
+    <string name="search_starting">Starting search...</string>
+    <string name="search_connection_error">Connection error during search</string>
+    <string name="search_service_unavailable">Search service unavailable</string>
+    <string name="search_timeout">Search request timed out</string>
+    
+    <!-- Network Status -->
+    <string name="network_connected">Connected to network</string>
+    <string name="network_disconnected">Network disconnected</string>
+    <string name="network_reconnecting">Reconnecting to network...</string>
+    <string name="network_poor_connection">Poor network connection</string>
+    
+    <!-- Fallback Data -->
+    <string name="using_cached_data">Using cached data</string>
+    <string name="data_may_be_outdated">Data may be outdated</string>
+    <string name="refresh_when_online">Refresh when online</string>
 </resources>
