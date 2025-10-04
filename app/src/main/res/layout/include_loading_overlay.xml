@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loadingOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cosmic_overlay"
+    android:visibility="gone"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/cosmic_dialog_background"
+        android:padding="@dimen/spacing_xl"
+        android:gravity="center">
+
+        <!-- Loading Spinner -->
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="@dimen/spacing_lg"
+            android:indeterminateTint="@color/cosmic_accent"
+            style="?android:attr/progressBarStyle" />
+
+        <!-- Loading Text -->
+        <TextView
+            android:id="@+id/loadingOverlayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_md"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</FrameLayout>

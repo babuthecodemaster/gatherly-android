@@ -4,6 +4,10 @@ import { storage } from "./storage";
 import { insertUserSchema, insertServerSchema, insertChannelSchema, insertMessageSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 import session from "express-session";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
 
 declare module "express-session" {
   interface SessionData {
@@ -280,6 +284,121 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const members = await storage.getServerMembers(req.params.id);
     res.json(members);
   });
+
+  // File upload configuration
+  const uploadDir = path.join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+
+  const storage_multer = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      const uniqueName = `${uuidv4()}-${file.originalname}`;
+      cb(null, uniqueName);
+    }
+  });
+
+  const upload = multer({
+    storage: storage_multer,
+    limits: {
+      fileSize: 100 * 1024 * 1024, // 100MB limit
+    },
+    fileFilter: (req, file, cb) => {
+      // Allow images, documents, videos, audio
+      const allowedTypes = [
+        'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+        'application/pdf',
+        'text/plain',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'video/mp4', 'video/webm',
+        'audio/mpeg', 'audio/wav', 'audio/ogg'
+      ];
+      
+      if (allowedTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('File type not allowed'));
+      }
+    }
+  });
+
+  // File upload endpoint
+  app.post("/api/upload", requireAuth, upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+      }
+
+      const { channelId } = req.body;
+      if (!channelId) {
+        return res.status(400).json({ message: "Channel ID required" });
+      }
+
+      // Check if user has access to the channel
+      const channel = await storage.getChannel(channelId);
+      if (!channel) {
+        return res.status(404).json({ message: "Channel not found" });
+      }
+
+      const member = await storage.getServerMember(req.session.userId!, channel.serverId);
+      if (!member) {
+        return res.status(403).json({ message: "Access denied" });
+      }
+
+      // Generate file info
+      const fileId = uuidv4();
+      const fileUrl = `/api/files/${req.file.filename}`;
+      const fileType = getFileTypeFromMimeType(req.file.mimetype);
+
+      const fileAttachment = {
+        id: fileId,
+        fileName: req.file.filename,
+        originalFileName: req.file.originalname,
+        fileType: fileType,
+        mimeType: req.file.mimetype,
+        fileSize: req.file.size,
+        url: fileUrl,
+        thumbnailUrl: fileType === 'image' ? fileUrl : null
+      };
+
+      res.json(fileAttachment);
+    } catch (error) {
+      console.error('File upload error:', error);
+      res.status(500).json({ message: "File upload failed" });
+    }
+  });
+
+  // File serving endpoint
+  app.get("/api/files/:filename", (req, res) => {
+    try {
+      const filename = req.params.filename;
+      const filePath = path.join(uploadDir, filename);
+      
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ message: "File not found" });
+      }
+
+      res.sendFile(filePath);
+    } catch (error) {
+      console.error('File serving error:', error);
+      res.status(500).json({ message: "Error serving file" });
+    }
+  });
+
+  function getFileTypeFromMimeType(mimeType: string): string {
+    if (mimeType.startsWith('image/')) return 'image';
+    if (mimeType.startsWith('video/')) return 'video';
+    if (mimeType.startsWith('audio/')) return 'audio';
+    if (mimeType === 'application/pdf') return 'pdf';
+    if (mimeType.startsWith('text/')) return 'text';
+    if (mimeType.startsWith('application/msword') || 
+        mimeType.startsWith('application/vnd.openxmlformats-officedocument')) return 'document';
+    return 'file';
+  }
 
   const httpServer = createServer(app);
   return httpServer;

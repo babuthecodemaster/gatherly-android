@@ -180,4 +180,49 @@
         <item name="android:elevation">@dimen/shadow_large</item>
     </style>
     
+    <!-- Dialog Styles -->
+    <style name="Theme.Gatherly.Dialog.FullScreen" parent="Theme.Gatherly">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/cosmic_black</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+    
+    <style name="CosmicDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    
+    <!-- Cosmic Button Styles -->
+    <style name="CosmicButton" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/cosmic_white</item>
+        <item name="backgroundTint">@color/cosmic_accent</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="android:elevation">@dimen/shadow_small</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="CosmicButton.Outline" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">@color/cosmic_gray</item>
+        <item name="strokeColor">@color/cosmic_gray</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">@dimen/radius_md</item>
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Slide Animation Styles -->
+    <style name="SlideInFromRight">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+    
 </resources>

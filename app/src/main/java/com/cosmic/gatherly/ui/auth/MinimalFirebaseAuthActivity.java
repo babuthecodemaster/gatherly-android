@@ -14,21 +14,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cosmic.gatherly.MinimalApplication;
+import com.cosmic.gatherly.data.model.AuthState;
+import com.cosmic.gatherly.data.repository.AuthManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Minimal Firebase Auth Activity - No dependencies on existing infrastructure
- * This should work without any crashes
+ * Minimal Firebase Auth Activity - Uses centralized AuthManager
+ * Provides programmatic UI with AuthManager integration
  */
 public class MinimalFirebaseAuthActivity extends AppCompatActivity {
     private static final String TAG = "MinimalFirebaseAuth";
     
-    private FirebaseAuth mAuth;
+    private AuthManager authManager;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -42,28 +42,24 @@ public class MinimalFirebaseAuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        Log.d(TAG, "MinimalFirebaseAuthActivity started");
+        Log.d(TAG, "MinimalFirebaseAuthActivity started with centralized AuthManager");
         
         try {
-            // Initialize Firebase
-            if (FirebaseApp.getApps(this).isEmpty()) {
-                FirebaseApp.initializeApp(this);
-                Log.d(TAG, "Firebase initialized");
+            // Get AuthManager instance from Application class
+            authManager = ((MinimalApplication) getApplication()).getAuthManager();
+            if (authManager == null) {
+                showError("Authentication service unavailable");
+                finish();
+                return;
             }
             
-            // Initialize Firebase Auth
-            mAuth = FirebaseAuth.getInstance();
-            Log.d(TAG, "Firebase Auth initialized");
+            Log.d(TAG, "AuthManager initialized");
             
             // Create UI programmatically to avoid layout issues
             createUI();
             
-            // Check if user is already signed in
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser != null) {
-                Log.d(TAG, "User already signed in: " + currentUser.getEmail());
-                showSuccess("Already signed in as " + currentUser.getEmail());
-            }
+            // Set up AuthState observer
+            setupAuthStateObserver();
             
         } catch (Exception e) {
             Log.e(TAG, "Error in onCreate", e);
@@ -161,6 +157,42 @@ public class MinimalFirebaseAuthActivity extends AppCompatActivity {
         setContentView(mainLayout);
     }
     
+    /**
+     * Set up AuthState observer for navigation and UI updates
+     */
+    private void setupAuthStateObserver() {
+        authManager.getAuthState().observe(this, authState -> {
+            Log.d(TAG, "AuthState changed: " + authState.getStatus());
+            
+            switch (authState.getStatus()) {
+                case LOADING:
+                    showLoading(true);
+                    statusText.setText("Processing...");
+                    statusText.setTextColor(0xFFB8B8CC);
+                    break;
+                    
+                case AUTHENTICATED:
+                    showLoading(false);
+                    String email = authState.getUser() != null ? authState.getUser().getEmail() : "Unknown";
+                    showSuccess("Welcome, " + email + "!");
+                    // Could navigate to main activity here if needed
+                    break;
+                    
+                case UNAUTHENTICATED:
+                    showLoading(false);
+                    statusText.setText("Enter your credentials");
+                    statusText.setTextColor(0xFFB8B8CC);
+                    break;
+                    
+                case ERROR:
+                    showLoading(false);
+                    String errorMessage = authState.getErrorMessage();
+                    showError("Authentication failed: " + errorMessage);
+                    break;
+            }
+        });
+    }
+    
     private void switchMode() {
         isLoginMode = !isLoginMode;
         if (isLoginMode) {
@@ -205,19 +237,17 @@ public class MinimalFirebaseAuthActivity extends AppCompatActivity {
     private void signIn(String email, String password) {
         Log.d(TAG, "Attempting sign in for: " + email);
         
-        mAuth.signInWithEmailAndPassword(email, password)
+        // Use AuthManager for sign in - loading state and UI updates handled by observer
+        authManager.signIn(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        showLoading(false);
-                        
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Sign in successful");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            showSuccess("Welcome back, " + user.getEmail() + "!");
+                            // Success handling is done by AuthState observer
                         } else {
                             Log.w(TAG, "Sign in failed", task.getException());
-                            showError("Sign in failed: " + getErrorMessage(task.getException()));
+                            // Error handling is done by AuthState observer
                         }
                     }
                 });
@@ -226,19 +256,17 @@ public class MinimalFirebaseAuthActivity extends AppCompatActivity {
     private void register(String email, String password) {
         Log.d(TAG, "Attempting registration for: " + email);
         
-        mAuth.createUserWithEmailAndPassword(email, password)
+        // Use AuthManager for sign up - loading state and UI updates handled by observer
+        authManager.signUp(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        showLoading(false);
-                        
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Registration successful");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            showSuccess("Account created! Welcome, " + user.getEmail() + "!");
+                            // Success handling is done by AuthState observer
                         } else {
                             Log.w(TAG, "Registration failed", task.getException());
-                            showError("Registration failed: " + getErrorMessage(task.getException()));
+                            // Error handling is done by AuthState observer
                         }
                     }
                 });
@@ -266,22 +294,5 @@ public class MinimalFirebaseAuthActivity extends AppCompatActivity {
         Log.d(TAG, message);
     }
     
-    private String getErrorMessage(Exception exception) {
-        if (exception == null) return "Unknown error";
-        
-        String message = exception.getMessage();
-        if (message == null) return "Unknown error";
-        
-        if (message.contains("password is invalid")) {
-            return "Invalid email or password";
-        } else if (message.contains("no user record")) {
-            return "No account found with this email";
-        } else if (message.contains("email address is already")) {
-            return "Account already exists with this email";
-        } else if (message.contains("network error")) {
-            return "Network error. Check your connection";
-        } else {
-            return message;
-        }
-    }
+
 }

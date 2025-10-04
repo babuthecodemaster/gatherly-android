@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cosmic_navy">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_md"
+        android:background="@color/cosmic_black"
+        android:elevation="@dimen/shadow_small">
+
+        <ImageView
+            android:id="@+id/closeMentionsButton"
+            android:layout_width="@dimen/touch_target_small"
+            android:layout_height="@dimen/touch_target_small"
+            android:layout_marginEnd="@dimen/spacing_md"
+            android:src="@drawable/ic_close"
+            app:tint="@color/cosmic_gray"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/close" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            android:src="@drawable/ic_at"
+            app:tint="@color/cosmic_accent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mentions"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/unreadCountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_notification_badge"
+            android:text="2"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold"
+            android:paddingHorizontal="@dimen/spacing_sm"
+            android:paddingVertical="@dimen/spacing_xs"
+            android:minWidth="20dp"
+            android:gravity="center"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_md"
+        android:background="@color/cosmic_navy">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/markAllReadButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/spacing_sm"
+            android:text="@string/mark_all_read"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_sm"
+            app:backgroundTint="@color/cosmic_accent"
+            app:cornerRadius="@dimen/radius_md"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clearAllButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_sm"
+            android:text="@string/clear_all"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_sm"
+            app:backgroundTint="@color/cosmic_surface"
+            app:cornerRadius="@dimen/radius_md"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+    </LinearLayout>
+
+    <!-- Mentions List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mentionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/cosmic_navy"
+        android:padding="@dimen/spacing_sm"
+        android:clipToPadding="false" />
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="@dimen/spacing_xl"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:src="@drawable/ic_at"
+            app:tint="@color/cosmic_gray"
+            android:alpha="0.5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_mentions"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_mentions_description"
+            android:textColor="@color/cosmic_text_tertiary"
+            android:textSize="@dimen/text_size_md"
+            android:textAlignment="center"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,24 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:background="@color/cosmic_black">
 
-    <!-- Server Sidebar -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/serversRecyclerView"
-        android:layout_width="@dimen/server_sidebar_width"
-        android:layout_height="match_parent"
-        android:background="@color/cosmic_navy"
-        android:padding="@dimen/spacing_sm" />
+    <!-- Main Content Area (Chat Interface) with Error Handling -->
+    <include
+        android:id="@+id/mainErrorHandler"
+        layout="@layout/include_error_handler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- Main Content Fragment Container -->
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/cosmic_black" />
+        <!-- Main Content wrapped in error handler -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/cosmic_black">
 
-</LinearLayout>
+            <!-- Top App Bar -->
+            <LinearLayout
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/spacing_md"
+                android:background="@color/cosmic_navy"
+                android:elevation="@dimen/shadow_medium">
+
+                <!-- Menu Button (Hamburger) -->
+                <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:layout_marginEnd="@dimen/spacing_md"
+                    android:src="@drawable/ic_menu"
+                    app:tint="@color/cosmic_white"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/cd_menu" />
+
+                <!-- Server Name -->
+                <TextView
+                    android:id="@+id/serverNameText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cosmic_gaming_hub"
+                    android:textColor="@color/cosmic_white"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <!-- Server Actions -->
+                <ImageView
+                    android:id="@+id/searchButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/search" />
+
+                <ImageView
+                    android:id="@+id/logoutButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:layout_marginEnd="@dimen/spacing_sm"
+                    android:src="@drawable/ic_logout"
+                    app:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Logout" />
+
+                <ImageView
+                    android:id="@+id/moreButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:src="@drawable/ic_more_vert"
+                    app:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/cd_menu" />
+
+            </LinearLayout>
+
+            <!-- Main Chat Fragment Container -->
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cosmic_black" />
+
+        </LinearLayout>
+
+    </include>
+
+    <!-- Navigation Drawer (Sliding Panel) -->
+    <LinearLayout
+        android:id="@+id/navigation_drawer"
+        android:layout_width="320dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="horizontal"
+        android:background="@color/cosmic_navy">
+
+        <!-- Server Sidebar (Left part of drawer) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/serversRecyclerView"
+            android:layout_width="@dimen/server_sidebar_width"
+            android:layout_height="match_parent"
+            android:background="@color/cosmic_black"
+            android:padding="@dimen/spacing_sm" />
+
+        <!-- Channels Sidebar (Right part of drawer) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/cosmic_navy">
+
+            <!-- Server Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/spacing_md"
+                android:background="@color/cosmic_dark_gray">
+
+                <TextView
+                    android:id="@+id/drawerServerNameText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cosmic_gaming_hub"
+                    android:textColor="@color/cosmic_white"
+                    android:textSize="@dimen/text_size_lg"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_expand_more"
+                    app:tint="@color/cosmic_gray"
+                    android:contentDescription="@string/cd_menu" />
+
+            </LinearLayout>
+
+            <!-- Channels List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/channelsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/cosmic_navy"
+                android:padding="@dimen/spacing_sm" />
+
+            <!-- Voice Control Panel -->
+            <com.cosmic.gatherly.ui.components.VoiceControlPanel
+                android:id="@+id/voiceControlPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- User Panel -->
+            <LinearLayout
+                android:id="@+id/userPanel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_panel_height"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/spacing_md"
+                android:background="@color/cosmic_dark_gray">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userAvatarImage"
+                    android:layout_width="@dimen/avatar_medium"
+                    android:layout_height="@dimen/avatar_medium"
+                    android:layout_marginEnd="@dimen/spacing_md"
+                    android:src="@drawable/avatar_background" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/usernameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CosmicExplorer"
+                        android:textColor="@color/cosmic_white"
+                        android:textSize="@dimen/text_size_md"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/userIdText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="#1234"
+                        android:textColor="@color/cosmic_gray"
+                        android:textSize="@dimen/text_size_sm" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/settingsButton"
+                    android:layout_width="@dimen/touch_target_small"
+                    android:layout_height="@dimen/touch_target_small"
+                    android:src="@drawable/ic_settings"
+                    app:tint="@color/cosmic_gray"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/cd_settings"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

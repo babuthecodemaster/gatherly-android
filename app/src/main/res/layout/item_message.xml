@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/message_padding"
+    android:background="?attr/selectableItemBackground">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/message_avatar_size"
+        android:layout_height="@dimen/message_avatar_size"
+        android:layout_marginEnd="@dimen/message_spacing"
+        app:cardCornerRadius="@dimen/radius_round"
+        app:cardElevation="@dimen/shadow_small"
+        app:cardBackgroundColor="@color/cosmic_accent">
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person"
+            app:tint="@color/cosmic_white"
+            android:contentDescription="@string/cd_user_avatar" />
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/spacing_xs">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CosmicExplorer"
+                android:textColor="@color/cosmic_success"
+                android:textSize="@dimen/text_size_md"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_sm"
+                android:text="over 1 year ago"
+                android:textColor="@color/cosmic_text_tertiary"
+                android:textSize="@dimen/text_size_xs"
+                android:fontFamily="sans-serif" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to the Cosmic Gaming Hub! 🚀"
+            android:textColor="@color/cosmic_text_primary"
+            android:textSize="@dimen/text_size_md"
+            android:lineSpacingExtra="2dp"
+            android:fontFamily="sans-serif" />
+
+        <!-- File Attachments Container -->
+        <LinearLayout
+            android:id="@+id/attachmentsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/reactionsCard"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/reaction_height"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:visibility="gone"
+            app:cardCornerRadius="@dimen/reaction_radius"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/cosmic_surface">
+
+            <TextView
+                android:id="@+id/reactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/spacing_sm"
+                android:paddingEnd="@dimen/spacing_sm"
+                android:text="🚀 2"
+                android:textColor="@color/cosmic_text_secondary"
+                android:textSize="@dimen/text_size_xs"
+                android:fontFamily="sans-serif-medium" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>

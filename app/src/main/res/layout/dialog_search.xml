@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cosmic_black"
+    android:padding="@dimen/spacing_lg">
+
+    <!-- Search Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_md">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/search_messages"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_xl"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <ImageView
+            android:id="@+id/closeSearchButton"
+            android:layout_width="@dimen/touch_target_small"
+            android:layout_height="@dimen/touch_target_small"
+            android:src="@drawable/ic_close"
+            app:tint="@color/cosmic_gray"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/search_close"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+    <!-- Search Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_md"
+        app:boxBackgroundMode="filled"
+        app:boxBackgroundColor="@color/cosmic_input_background"
+        app:boxCornerRadiusTopStart="@dimen/radius_lg"
+        app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+        app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+        app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:boxStrokeColor="@color/cosmic_accent"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/cosmic_gray"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/cosmic_gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_placeholder"
+            android:textColor="@color/cosmic_white"
+            android:textColorHint="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_md"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:background="@android:color/transparent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Search Results Header -->
+    <LinearLayout
+        android:id="@+id/searchResultsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_sm"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/searchResultsCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/search_results_count"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_sm" />
+
+        <TextView
+            android:id="@+id/searchInChannel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_in_channel"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_sm" />
+
+    </LinearLayout>
+
+    <!-- Search Results List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:visibility="gone" />
+
+    <!-- No Results View -->
+    <LinearLayout
+        android:id="@+id/noResultsView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:src="@drawable/ic_search"
+            app:tint="@color/cosmic_gray"
+            android:alpha="0.5" />
+
+        <TextView
+            android:id="@+id/noResultsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_shortcut_hint"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_md"
+            android:gravity="center" />
+        
+        <Button
+            android:id="@+id/retrySearchButtonEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry_search"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_md"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/cosmic_button_background"
+            android:backgroundTint="@color/cosmic_accent"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingVertical="@dimen/spacing_md"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:visibility="gone"
+            style="@style/Widget.Material3.Button" />
+
+    </LinearLayout>
+
+    <!-- Loading View -->
+    <LinearLayout
+        android:id="@+id/searchLoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:indeterminateTint="@color/cosmic_accent" />
+
+        <TextView
+            android:id="@+id/loadingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/searching_messages"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_md" />
+
+    </LinearLayout>
+
+    <!-- Error View -->
+    <LinearLayout
+        android:id="@+id/searchErrorView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="@dimen/spacing_md"
+            android:src="@drawable/ic_error"
+            app:tint="@color/cosmic_red"
+            android:alpha="0.7"
+            android:contentDescription="@string/search_error" />
+
+        <TextView
+            android:id="@+id/searchErrorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_failed"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <TextView
+            android:id="@+id/searchErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_failed_description"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_md"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/spacing_lg"
+            android:paddingHorizontal="@dimen/spacing_lg" />
+
+        <Button
+            android:id="@+id/retrySearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_md"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/cosmic_button_background"
+            android:backgroundTint="@color/cosmic_accent"
+            android:paddingHorizontal="@dimen/spacing_lg"
+            android:paddingVertical="@dimen/spacing_md"
+            style="@style/Widget.Material3.Button" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -37,13 +37,6 @@
         <!-- Minimal Splash Activity (Crash-proof) -->
         <activity
             android:name=".ui.splash.MinimalSplashActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
-
-        <!-- Ultra Minimal Splash Activity (Absolutely crash-proof) -->
-        <activity
-            android:name=".ui.splash.UltraMinimalSplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar">
@@ -52,6 +45,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Ultra Minimal Splash Activity (Demo version) -->
+        <activity
+            android:name=".ui.splash.UltraMinimalSplashActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
 
         <!-- Authentication Activity -->
         <activity
@@ -99,6 +99,14 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Gatherly.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Working Main Activity (Integrated Firebase Auth) -->
+        <activity
+            android:name=".ui.main.WorkingMainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
 
         <!-- Server Details Activity -->

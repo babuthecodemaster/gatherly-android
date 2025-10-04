@@ -39,6 +39,7 @@ public class MessageEntity {
     private boolean isRead;
     private String messageType; // text, image, file, etc.
     private String attachmentUrl;
+    private String attachmentData; // JSON string for file attachment details
     
     public MessageEntity() {}
     
@@ -94,4 +95,7 @@ public class MessageEntity {
     
     public String getAttachmentUrl() { return attachmentUrl; }
     public void setAttachmentUrl(String attachmentUrl) { this.attachmentUrl = attachmentUrl; }
+    
+    public String getAttachmentData() { return attachmentData; }
+    public void setAttachmentData(String attachmentData) { this.attachmentData = attachmentData; }
 }

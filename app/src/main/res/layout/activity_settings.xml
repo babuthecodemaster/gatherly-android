@@ -5,13 +5,67 @@
     android:orientation="vertical"
     android:background="@color/cosmic_black">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="Settings"
-        android:textColor="@color/cosmic_white"
-        android:textSize="24sp" />
+    <!-- Settings Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_md"
+        android:background="@color/cosmic_navy"
+        android:elevation="@dimen/shadow_medium">
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="@dimen/touch_target_small"
+            android:layout_height="@dimen/touch_target_small"
+            android:layout_marginEnd="@dimen/spacing_md"
+            android:src="@drawable/ic_arrow_forward"
+            android:rotation="180"
+            android:tint="@color/cosmic_white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/back" />
+
+        <!-- Settings Title -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/settings"
+            android:textColor="@color/cosmic_white"
+            android:textSize="@dimen/text_size_xl"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+
+    <!-- Settings Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cosmic_black">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_lg">
+
+            <!-- Settings placeholder content -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/settings_coming_soon"
+                android:textColor="@color/cosmic_gray"
+                android:textSize="@dimen/text_size_lg"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

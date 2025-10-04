@@ -20,47 +20,58 @@ export default function ServerSidebar({ servers, selectedServerId, onServerSelec
   ];
 
   return (
-    <div className="w-16 lg:w-20 bg-cosmic-navy flex flex-col items-center py-4 border-r border-gray-800 nebula-bg">
+    <div className="w-16 lg:w-20 bg-cosmic-navy flex flex-col items-center py-4 border-r border-gray-800 nebula-bg relative">
       <div className="flex flex-col items-center space-y-3">
         {/* Home Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl cosmic-glow p-0 flex items-center justify-center"
-          onClick={() => onServerSelect("default-server")}
-          data-testid="button-home"
-        >
-          <Rocket className="w-6 h-6 text-white" />
-        </Button>
+        <div className="relative">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="server-icon w-12 h-12 bg-gradient-to-br from-cosmic-blue to-cosmic-purple rounded-2xl cosmic-glow p-0 flex items-center justify-center"
+            onClick={() => onServerSelect("default-server")}
+            data-testid="button-home"
+          >
+            <Rocket className="w-6 h-6 text-white" />
+          </Button>
+          {/* Vertical line indicator for home button */}
+          <div className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-cosmic-blue rounded-r-full transition-all duration-200 ${
+            selectedServerId === "default-server" ? 'opacity-100' : 'opacity-0'
+          }`} />
+        </div>
 
         <div className="w-8 h-0.5 bg-gray-600 rounded-full"></div>
 
         {/* Server Icons */}
         {servers.map((server, index) => (
-          <Button
-            key={server.id}
-            variant="ghost"
-            size="icon"
-            className={`server-icon w-12 h-12 rounded-2xl overflow-hidden p-0 flex items-center justify-center ${
-              selectedServerId === server.id ? 'ring-2 ring-cosmic-blue' : ''
-            } glow-hover`}
-            onClick={() => onServerSelect(server.id)}
-            data-testid={`button-server-${server.id}`}
-          >
-            {server.icon ? (
-              <img 
-                src={server.icon} 
-                alt={server.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <img 
-                src={mockServerImages[index % mockServerImages.length]} 
-                alt={server.name}
-                className="w-full h-full object-cover"
-              />
-            )}
-          </Button>
+          <div key={server.id} className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`server-icon w-12 h-12 rounded-2xl overflow-hidden p-0 flex items-center justify-center ${
+                selectedServerId === server.id ? 'ring-2 ring-cosmic-blue' : ''
+              } glow-hover`}
+              onClick={() => onServerSelect(server.id)}
+              data-testid={`button-server-${server.id}`}
+            >
+              {server.icon ? (
+                <img 
+                  src={server.icon} 
+                  alt={server.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src={mockServerImages[index % mockServerImages.length]} 
+                  alt={server.name}
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </Button>
+            {/* Vertical line indicator for server */}
+            <div className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-cosmic-blue rounded-r-full transition-all duration-200 ${
+              selectedServerId === server.id ? 'opacity-100' : 'opacity-0'
+            }`} />
+          </div>
         ))}
 
         {/* Add Server Button */}

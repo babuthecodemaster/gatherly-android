@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cosmic.gatherly.ui.auth.MinimalFirebaseAuthActivity;
+import com.cosmic.gatherly.ui.auth.AuthActivity;
+import com.cosmic.gatherly.ui.main.MainActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -92,8 +93,7 @@ public class MinimalSplashActivity extends AppCompatActivity {
             
             if (currentUser != null) {
                 Log.d(TAG, "User is signed in: " + currentUser.getEmail());
-                // For now, just go to auth activity to show success
-                navigateToAuth();
+                navigateToMainApp();
             } else {
                 Log.d(TAG, "User not signed in, going to auth");
                 navigateToAuth();
@@ -107,12 +107,25 @@ public class MinimalSplashActivity extends AppCompatActivity {
     
     private void navigateToAuth() {
         try {
-            Intent intent = new Intent(this, MinimalFirebaseAuthActivity.class);
+            Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
             finish();
         } catch (Exception e) {
             Log.e(TAG, "Error navigating to auth", e);
             finish();
+        }
+    }
+    
+    private void navigateToMainApp() {
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("source", "firebase_auth");
+            intent.putExtra("auth_type", "firebase");
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+            Log.e(TAG, "Error navigating to main app", e);
+            navigateToAuth();
         }
     }
 }

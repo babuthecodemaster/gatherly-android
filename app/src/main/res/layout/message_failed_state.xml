@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/message_padding"
+    android:gravity="center_vertical"
+    android:background="@color/cosmic_red_alpha">
+
+    <!-- Error Icon -->
+    <ImageView
+        android:layout_width="@dimen/message_avatar_size"
+        android:layout_height="@dimen/message_avatar_size"
+        android:layout_marginEnd="@dimen/spacing_md"
+        android:src="@drawable/ic_error"
+        app:tint="@color/cosmic_red"
+        android:contentDescription="@string/message_failed" />
+
+    <!-- Message Content -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Error Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/message_send_failed"
+            android:textColor="@color/cosmic_red"
+            android:textSize="@dimen/text_size_md"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="@dimen/spacing_xs" />
+
+        <!-- Error Message -->
+        <TextView
+            android:id="@+id/failedMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/message_failed_description"
+            android:textColor="@color/cosmic_gray"
+            android:textSize="@dimen/text_size_sm"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="@dimen/spacing_sm" />
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Retry Button -->
+            <Button
+                android:id="@+id/retryMessageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/retry"
+                android:textColor="@color/cosmic_white"
+                android:textSize="@dimen/text_size_xs"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/cosmic_button_background"
+                android:backgroundTint="@color/cosmic_red"
+                android:paddingHorizontal="@dimen/spacing_md"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                style="@style/Widget.Material3.Button" />
+
+            <!-- Dismiss Button -->
+            <Button
+                android:id="@+id/dismissMessageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/dismiss"
+                android:textColor="@color/cosmic_gray"
+                android:textSize="@dimen/text_size_xs"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/cosmic_input_background"
+                android:backgroundTint="@color/cosmic_surface"
+                android:paddingHorizontal="@dimen/spacing_md"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

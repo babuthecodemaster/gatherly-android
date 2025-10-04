@@ -13,23 +13,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cosmic.gatherly.MinimalApplication;
 import com.cosmic.gatherly.R;
-import com.cosmic.gatherly.data.util.FirebaseUtils;
+import com.cosmic.gatherly.data.model.AuthState;
+import com.cosmic.gatherly.data.repository.AuthManager;
 import com.cosmic.gatherly.ui.main.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Simple Firebase Authentication Activity
- * Handles login and registration using Firebase Auth
+ * Handles login and registration using centralized AuthManager
  */
 public class FirebaseAuthActivity extends AppCompatActivity {
     private static final String TAG = "FirebaseAuthActivity";
     
-    private FirebaseAuth mAuth;
+    private AuthManager authManager;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -45,31 +45,26 @@ public class FirebaseAuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase_auth);
         
-        // Initialize Firebase
-        if (!FirebaseUtils.initializeFirebase(this)) {
-            Toast.makeText(this, "Firebase initialization failed", Toast.LENGTH_LONG).show();
+        // Get AuthManager instance from Application class
+        authManager = ((MinimalApplication) getApplication()).getAuthManager();
+        if (authManager == null) {
+            Toast.makeText(this, "Authentication service unavailable", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
         
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        
         initializeViews();
         setupClickListeners();
+        setupAuthStateObserver();
         
-        Log.d(TAG, "FirebaseAuthActivity created successfully");
+        Log.d(TAG, "FirebaseAuthActivity created successfully with centralized AuthManager");
     }
     
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Log.d(TAG, "User already signed in: " + currentUser.getEmail());
-            navigateToMainActivity();
-        }
+        // AuthState is now handled by the observer, no need for manual check
+        Log.d(TAG, "FirebaseAuthActivity started - auth state managed by observer");
     }
     
     private void initializeViews() {
@@ -102,6 +97,39 @@ public class FirebaseAuthActivity extends AppCompatActivity {
         });
     }
     
+    /**
+     * Set up AuthState observer for navigation and UI updates
+     */
+    private void setupAuthStateObserver() {
+        authManager.getAuthState().observe(this, authState -> {
+            Log.d(TAG, "AuthState changed: " + authState.getStatus());
+            
+            switch (authState.getStatus()) {
+                case LOADING:
+                    showLoading(true);
+                    break;
+                    
+                case AUTHENTICATED:
+                    showLoading(false);
+                    String email = authState.getUser() != null ? authState.getUser().getEmail() : "Unknown";
+                    Toast.makeText(this, "Welcome, " + email + "!", Toast.LENGTH_SHORT).show();
+                    navigateToMainActivity();
+                    break;
+                    
+                case UNAUTHENTICATED:
+                    showLoading(false);
+                    // Stay on auth screen
+                    break;
+                    
+                case ERROR:
+                    showLoading(false);
+                    String errorMessage = authState.getErrorMessage();
+                    Toast.makeText(this, "Authentication failed: " + errorMessage, Toast.LENGTH_LONG).show();
+                    break;
+            }
+        });
+    }
+    
     private void switchMode() {
         isLoginMode = !isLoginMode;
         updateUIForMode();
@@ -129,30 +157,19 @@ public class FirebaseAuthActivity extends AppCompatActivity {
             return;
         }
         
-        showLoading(true);
         Log.d(TAG, "Attempting to sign in user: " + email);
         
-        mAuth.signInWithEmailAndPassword(email, password)
+        // Use AuthManager for sign in - loading state and navigation handled by observer
+        authManager.signIn(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        showLoading(false);
-                        
                         if (task.isSuccessful()) {
-                            // Sign in success
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(FirebaseAuthActivity.this, 
-                                "Welcome back, " + user.getEmail() + "!", 
-                                Toast.LENGTH_SHORT).show();
-                            navigateToMainActivity();
+                            Log.d(TAG, "signIn:success");
+                            // Success handling is done by AuthState observer
                         } else {
-                            // Sign in failed
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            String errorMessage = getErrorMessage(task.getException());
-                            Toast.makeText(FirebaseAuthActivity.this, 
-                                "Authentication failed: " + errorMessage, 
-                                Toast.LENGTH_LONG).show();
+                            Log.w(TAG, "signIn:failure", task.getException());
+                            // Error handling is done by AuthState observer
                         }
                     }
                 });
@@ -171,30 +188,19 @@ public class FirebaseAuthActivity extends AppCompatActivity {
             return;
         }
         
-        showLoading(true);
         Log.d(TAG, "Attempting to register user: " + email);
         
-        mAuth.createUserWithEmailAndPassword(email, password)
+        // Use AuthManager for sign up - loading state and navigation handled by observer
+        authManager.signUp(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        showLoading(false);
-                        
                         if (task.isSuccessful()) {
-                            // Registration success
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(FirebaseAuthActivity.this, 
-                                "Account created successfully! Welcome, " + user.getEmail() + "!", 
-                                Toast.LENGTH_SHORT).show();
-                            navigateToMainActivity();
+                            Log.d(TAG, "signUp:success");
+                            // Success handling is done by AuthState observer
                         } else {
-                            // Registration failed
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            String errorMessage = getErrorMessage(task.getException());
-                            Toast.makeText(FirebaseAuthActivity.this, 
-                                "Registration failed: " + errorMessage, 
-                                Toast.LENGTH_LONG).show();
+                            Log.w(TAG, "signUp:failure", task.getException());
+                            // Error handling is done by AuthState observer
                         }
                     }
                 });
@@ -230,31 +236,7 @@ public class FirebaseAuthActivity extends AppCompatActivity {
         passwordEditText.setEnabled(!show);
     }
     
-    private String getErrorMessage(Exception exception) {
-        if (exception == null) {
-            return "Unknown error occurred";
-        }
-        
-        String message = exception.getMessage();
-        if (message == null) {
-            return "Unknown error occurred";
-        }
-        
-        // Simplify Firebase error messages for users
-        if (message.contains("password is invalid")) {
-            return "Invalid email or password";
-        } else if (message.contains("no user record")) {
-            return "No account found with this email";
-        } else if (message.contains("email address is already")) {
-            return "An account with this email already exists";
-        } else if (message.contains("network error")) {
-            return "Network error. Please check your connection";
-        } else if (message.contains("too many requests")) {
-            return "Too many attempts. Please try again later";
-        } else {
-            return message;
-        }
-    }
+
     
     private void navigateToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

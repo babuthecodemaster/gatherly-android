@@ -7,6 +7,7 @@
   - Add validation for missing layout resources
   - _Requirements: 1.1, 4.2_
 
+
 - [x] 2. Fix login navigation failure to MainActivity
 
   - Add validation checks before MainActivity navigation
@@ -104,3 +105,16 @@
   - Add proper server status detection and user feedback
   - Configure development/production server endpoints correctly
   - _Requirements: 3.1, 3.4, 4.1_
+
+
+- [ ]13. Review and fix the possible errors
+
+  - Check all files and make sure that there are no errors
+  - Check Firebase is running fine or not
+  - _Requirements: 4.1_
+
+- [ ]14. Add a new feature to the app
+
+  - Add a new feature to the app, such as a "Forgot Password" feature or a "Change Password" feature
+  - _Requirements: 5.1, 5.2, 5.3, 5.4, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4, 13.1, 13.2, 13.3, 13.4, 14.1, 14.2, 14.3, 14.4_
+

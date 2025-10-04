@@ -1,235 +1,218 @@
 package com.cosmic.gatherly.ui.auth;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.cosmic.gatherly.MinimalApplication;
 import com.cosmic.gatherly.R;
+import com.cosmic.gatherly.data.model.AuthState;
+import com.cosmic.gatherly.data.repository.AuthManager;
+import com.cosmic.gatherly.ui.main.MainActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
+/**
+ * Beautiful Login Fragment using original Material Design with centralized AuthManager
+ */
 public class LoginFragment extends Fragment {
     
-    private TextInputLayout emailInputLayout;
-    private TextInputLayout passwordInputLayout;
+    private static final String TAG = "LoginFragment";
+    
+    private AuthManager authManager;
     private TextInputEditText emailEditText;
     private TextInputEditText passwordEditText;
     private MaterialButton loginButton;
-    private MaterialButton retryButton;
     private ProgressBar loginProgressBar;
     private TextView errorMessageText;
-    
-    private AuthCallback authCallback;
-    private boolean isLoading = false;
+    private MaterialButton retryButton;
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof AuthCallback) {
-            authCallback = (AuthCallback) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement AuthCallback");
-        }
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Get AuthManager instance from Application class
+        authManager = ((MinimalApplication) requireActivity().getApplication()).getAuthManager();
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, 
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-        
-        initializeViews(view);
-        setupClickListeners();
-        
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Use the original beautiful login layout
+        return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    private void initializeViews(View view) {
-        emailInputLayout = view.findViewById(R.id.emailInputLayout);
-        passwordInputLayout = view.findViewById(R.id.passwordInputLayout);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        
+        // Initialize views
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
         loginButton = view.findViewById(R.id.loginButton);
-        retryButton = view.findViewById(R.id.retryButton);
         loginProgressBar = view.findViewById(R.id.loginProgressBar);
         errorMessageText = view.findViewById(R.id.errorMessageText);
-    }
-
-    private void setupClickListeners() {
+        retryButton = view.findViewById(R.id.retryButton);
+        
+        // Setup click listeners
         loginButton.setOnClickListener(v -> attemptLogin());
         retryButton.setOnClickListener(v -> {
             hideError();
             attemptLogin();
         });
+        
+        // Set up AuthState observer
+        setupAuthStateObserver();
+        
+        Log.d(TAG, "Beautiful Login Fragment initialized with centralized AuthManager");
     }
-
-    private void attemptLogin() {
-        // Prevent multiple login attempts
-        if (isLoading) {
-            return;
-        }
-
-        // Clear previous errors
-        clearErrors();
+    
+    // Methods for compatibility with existing AuthActivity
+    public void clearForm() {
+        if (emailEditText != null) emailEditText.setText("");
+        if (passwordEditText != null) passwordEditText.setText("");
         hideError();
-
+    }
+    
+    public void onLoginComplete() {
+        showLoading(false);
+        navigateToMainApp();
+    }
+    
+    public void onLoginError(String errorMessage) {
+        showLoading(false);
+        showError(errorMessage);
+    }
+    
+    /**
+     * Set up AuthState observer for navigation and UI updates
+     */
+    private void setupAuthStateObserver() {
+        if (authManager != null) {
+            authManager.getAuthState().observe(this, authState -> {
+                Log.d(TAG, "AuthState changed: " + authState.getStatus());
+                
+                switch (authState.getStatus()) {
+                    case LOADING:
+                        showLoading(true);
+                        hideError();
+                        break;
+                        
+                    case AUTHENTICATED:
+                        showLoading(false);
+                        String email = authState.getUser() != null ? authState.getUser().getEmail() : "Unknown";
+                        Toast.makeText(getContext(), "Welcome back, " + email + "!", Toast.LENGTH_SHORT).show();
+                        navigateToMainApp();
+                        break;
+                        
+                    case UNAUTHENTICATED:
+                        showLoading(false);
+                        // Stay on login screen
+                        break;
+                        
+                    case ERROR:
+                        showLoading(false);
+                        String errorMessage = authState.getErrorMessage();
+                        showError("Sign in failed: " + errorMessage);
+                        break;
+                }
+            });
+        }
+    }
+    
+    private void attemptLogin() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-
-        boolean isValid = validateInputs(email, password);
-
-        if (isValid && authCallback != null) {
-            setLoadingState(true);
-            authCallback.onLoginRequested(email, password);
-        }
-    }
-
-    private boolean validateInputs(String email, String password) {
-        boolean isValid = true;
-
-        if (TextUtils.isEmpty(email)) {
-            emailInputLayout.setError(getString(R.string.error_invalid_credentials));
-            isValid = false;
-        }
-
-        if (TextUtils.isEmpty(password) || password.length() < 6) {
-            passwordInputLayout.setError("Password must be at least 6 characters");
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
-    private void clearErrors() {
-        emailInputLayout.setError(null);
-        passwordInputLayout.setError(null);
-    }
-
-    private void setLoadingState(boolean loading) {
-        isLoading = loading;
         
-        if (loading) {
-            // Show loading state
-            loginButton.setEnabled(false);
-            loginButton.setText(getString(R.string.connecting));
-            loginButton.setIcon(null);
-            loginProgressBar.setVisibility(View.VISIBLE);
-            retryButton.setVisibility(View.GONE);
+        // Validation
+        if (email.isEmpty()) {
+            emailEditText.setError("Email is required");
+            return;
+        }
+        
+        if (password.isEmpty()) {
+            passwordEditText.setError("Password is required");
+            return;
+        }
+        
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Please enter a valid email");
+            return;
+        }
+        
+        if (password.length() < 6) {
+            passwordEditText.setError("Password must be at least 6 characters");
+            return;
+        }
+        
+        // Use AuthManager for sign in - loading state and UI updates handled by observer
+        if (authManager != null) {
+            authManager.signIn(email, password)
+                    .addOnCompleteListener(requireActivity(), task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Sign in successful");
+                            // Success handling is done by AuthState observer
+                        } else {
+                            Log.w(TAG, "Sign in failed", task.getException());
+                            // Error handling is done by AuthState observer
+                        }
+                    });
         } else {
-            // Reset to normal state
-            loginButton.setEnabled(true);
-            loginButton.setText(getString(R.string.login_button));
-            if (getContext() != null) {
-                loginButton.setIcon(androidx.core.content.ContextCompat.getDrawable(getContext(), R.drawable.ic_rocket));
-            }
+            showError("Authentication service unavailable");
+        }
+    }
+    
+    private void showLoading(boolean show) {
+        if (show) {
+            loginProgressBar.setVisibility(View.VISIBLE);
+            loginButton.setText("");
+            loginButton.setEnabled(false);
+            emailEditText.setEnabled(false);
+            passwordEditText.setEnabled(false);
+        } else {
             loginProgressBar.setVisibility(View.GONE);
+            loginButton.setText("🚀 Launch into Chat");
+            loginButton.setEnabled(true);
+            emailEditText.setEnabled(true);
+            passwordEditText.setEnabled(true);
         }
     }
-
+    
     private void showError(String message) {
-        if (errorMessageText != null && message != null && !message.isEmpty()) {
-            errorMessageText.setText(message);
-            errorMessageText.setVisibility(View.VISIBLE);
-            retryButton.setVisibility(View.VISIBLE);
-        }
+        errorMessageText.setText(message);
+        errorMessageText.setVisibility(View.VISIBLE);
+        retryButton.setVisibility(View.VISIBLE);
+        errorMessageText.setBackgroundColor(0x22FF6B6B); // Light red background
+        errorMessageText.setTextColor(0xFFFF6B6B); // Red text
     }
-
+    
     private void hideError() {
-        if (errorMessageText != null) {
-            errorMessageText.setVisibility(View.GONE);
-        }
-        if (retryButton != null) {
-            retryButton.setVisibility(View.GONE);
-        }
+        errorMessageText.setVisibility(View.GONE);
+        retryButton.setVisibility(View.GONE);
     }
     
-    /**
-     * Called when login process is complete (success or failure)
-     * Resets the UI state to allow new login attempts
-     */
-    public void onLoginComplete() {
-        try {
-            setLoadingState(false);
-            android.util.Log.d("LoginFragment", "Login process completed - loading state reset");
-        } catch (Exception e) {
-            android.util.Log.e("LoginFragment", "Error resetting login state", e);
-            // Force reset loading state even if there's an error
-            isLoading = false;
-            if (loginButton != null) {
-                loginButton.setEnabled(true);
-                loginButton.setText(getString(R.string.login_button));
-            }
-            if (loginProgressBar != null) {
-                loginProgressBar.setVisibility(View.GONE);
-            }
-        }
-    }
 
-    /**
-     * Called when login fails with an error message
-     * Shows error feedback to the user
-     */
-    public void onLoginError(String errorMessage) {
-        try {
-            setLoadingState(false);
-            showError(errorMessage);
-            android.util.Log.d("LoginFragment", "Login error handled - loading state reset and error shown");
-        } catch (Exception e) {
-            android.util.Log.e("LoginFragment", "Error handling login error", e);
-            // Force reset loading state even if there's an error
-            isLoading = false;
-            if (loginButton != null) {
-                loginButton.setEnabled(true);
-                loginButton.setText(getString(R.string.login_button));
-            }
-            if (loginProgressBar != null) {
-                loginProgressBar.setVisibility(View.GONE);
-            }
-            // Try to show error message as toast if UI error handling fails
-            if (getContext() != null && errorMessage != null) {
-                android.widget.Toast.makeText(getContext(), errorMessage, android.widget.Toast.LENGTH_LONG).show();
-            }
-        }
-    }
     
-    /**
-     * Clears all form fields and resets the form state
-     * Called when switching between login/registration tabs
-     */
-    public void clearForm() {
+    private void navigateToMainApp() {
         try {
-            if (emailEditText != null) {
-                emailEditText.setText("");
-            }
-            if (passwordEditText != null) {
-                passwordEditText.setText("");
-            }
-            
-            // Clear any error states
-            clearErrors();
-            hideError();
-            
-            // Reset loading state
-            setLoadingState(false);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("source", "firebase_auth");
+            intent.putExtra("auth_type", "firebase");
+            startActivity(intent);
+            requireActivity().finish();
         } catch (Exception e) {
-            // Log error but don't crash
-            android.util.Log.e("LoginFragment", "Error clearing form", e);
+            Log.e(TAG, "Error navigating to main app", e);
+            Toast.makeText(getContext(), "Error loading main app", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        authCallback = null;
     }
 }
