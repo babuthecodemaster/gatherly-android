@@ -13,6 +13,7 @@ public class GatherlyApplication extends Application {
     
     // Only essential components for Firebase Auth
     private SecurePreferences securePreferences;
+    private com.cosmic.gatherly.data.repository.AuthManager authManager;
     
     @Override
     public void onCreate() {
@@ -34,6 +35,9 @@ public class GatherlyApplication extends Application {
             
             // Initialize only essential components
             initializeEssentialComponents();
+            
+            // Initialize AuthManager
+            initializeAuthManager();
             
             Log.d(TAG, "✅ Gatherly Application initialized successfully");
             
@@ -82,9 +86,32 @@ public class GatherlyApplication extends Application {
         return instance;
     }
     
+    /**
+     * Initialize AuthManager singleton instance
+     */
+    private void initializeAuthManager() {
+        try {
+            authManager = com.cosmic.gatherly.data.repository.AuthManagerImpl.getInstance(this);
+            Log.d(TAG, "✅ AuthManager initialized successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "❌ Failed to initialize AuthManager", e);
+        }
+    }
+    
     // Getters for essential components only
     public SecurePreferences getSecurePreferences() {
         return securePreferences;
+    }
+    
+    /**
+     * Getter method for AuthManager access
+     */
+    public com.cosmic.gatherly.data.repository.AuthManager getAuthManager() {
+        if (authManager == null) {
+            Log.w(TAG, "AuthManager is null, attempting to reinitialize");
+            initializeAuthManager();
+        }
+        return authManager;
     }
     
     @Override

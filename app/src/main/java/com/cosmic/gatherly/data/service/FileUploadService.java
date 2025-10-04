@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.webkit.MimeTypeMap;
-import com.cosmic.gatherly.data.api.ApiClient;
+import com.cosmic.gatherly.data.network.ApiClient;
 import com.cosmic.gatherly.data.api.ApiService;
 import com.cosmic.gatherly.data.model.FileAttachment;
 import com.cosmic.gatherly.data.util.Logger;
@@ -39,7 +39,7 @@ public class FileUploadService {
     
     public FileUploadService(Context context) {
         this.context = context;
-        this.apiService = ApiClient.getClient(context).create(ApiService.class);
+        this.apiService = ApiClient.getInstance().create(ApiService.class);
     }
     
     public void uploadFile(Uri fileUri, String channelId, FileUploadCallback callback) {

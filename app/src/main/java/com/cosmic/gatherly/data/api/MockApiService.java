@@ -131,4 +131,9 @@ public class MockApiService implements ApiService {
     public Call<Message> sendMessage(String channelId, SendMessageRequest request) {
         return new MockCall<>(null);
     }
+
+    @Override
+    public Call<ApiService.FileUploadResponse> uploadFile(okhttp3.MultipartBody.Part file, okhttp3.RequestBody channelId) {
+        return new MockCall<>(new ApiService.FileUploadResponse());
+    }
 }

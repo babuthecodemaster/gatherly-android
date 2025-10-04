@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 
 import com.cosmic.gatherly.ui.auth.AuthActivity;
 import com.cosmic.gatherly.ui.main.MainActivity;
@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * Minimal Splash Activity - No dependencies, no crashes
  */
-public class MinimalSplashActivity extends AppCompatActivity {
+public class MinimalSplashActivity extends Activity {
     
     private static final String TAG = "MinimalSplash";
     private static final int SPLASH_DELAY = 2000;
@@ -118,7 +118,7 @@ public class MinimalSplashActivity extends AppCompatActivity {
     
     private void navigateToMainApp() {
         try {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, com.cosmic.gatherly.ui.main.MainActivity.class);
             intent.putExtra("source", "firebase_auth");
             intent.putExtra("auth_type", "firebase");
             startActivity(intent);

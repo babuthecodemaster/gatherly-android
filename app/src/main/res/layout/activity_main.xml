@@ -6,104 +6,95 @@
     android:layout_height="match_parent"
     android:background="@color/cosmic_black">
 
-    <!-- Main Content Area (Chat Interface) with Error Handling -->
-    <include
-        android:id="@+id/mainErrorHandler"
-        layout="@layout/include_error_handler"
+    <!-- Main Content Area (Chat Interface) - Simplified -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/cosmic_black">
 
-        <!-- Main Content wrapped in error handler -->
+        <!-- Top App Bar -->
         <LinearLayout
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/cosmic_black">
+            android:layout_height="@dimen/toolbar_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_md"
+            android:background="@color/cosmic_navy"
+            android:elevation="@dimen/shadow_medium">
 
-            <!-- Top App Bar -->
-            <LinearLayout
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/spacing_md"
-                android:background="@color/cosmic_navy"
-                android:elevation="@dimen/shadow_medium">
+            <!-- Menu Button (Hamburger) -->
+            <ImageView
+                android:id="@+id/menuButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_md"
+                android:src="@drawable/ic_menu"
+                app:tint="@color/cosmic_white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/cd_menu" />
 
-                <!-- Menu Button (Hamburger) -->
-                <ImageView
-                    android:id="@+id/menuButton"
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:layout_marginEnd="@dimen/spacing_md"
-                    android:src="@drawable/ic_menu"
-                    app:tint="@color/cosmic_white"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="@string/cd_menu" />
+            <!-- Server Name -->
+            <TextView
+                android:id="@+id/serverNameText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cosmic_gaming_hub"
+                android:textColor="@color/cosmic_white"
+                android:textSize="@dimen/text_size_lg"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
 
-                <!-- Server Name -->
-                <TextView
-                    android:id="@+id/serverNameText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/cosmic_gaming_hub"
-                    android:textColor="@color/cosmic_white"
-                    android:textSize="@dimen/text_size_lg"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-medium" />
+            <!-- Server Actions -->
+            <ImageView
+                android:id="@+id/searchButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:src="@drawable/ic_search"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/search" />
 
-                <!-- Server Actions -->
-                <ImageView
-                    android:id="@+id/searchButton"
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:layout_marginEnd="@dimen/spacing_sm"
-                    android:src="@drawable/ic_search"
-                    app:tint="@color/cosmic_gray"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="@string/search" />
+            <ImageView
+                android:id="@+id/logoutButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:layout_marginEnd="@dimen/spacing_sm"
+                android:src="@drawable/ic_logout"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Logout" />
 
-                <ImageView
-                    android:id="@+id/logoutButton"
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:layout_marginEnd="@dimen/spacing_sm"
-                    android:src="@drawable/ic_logout"
-                    app:tint="@color/cosmic_gray"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="Logout" />
-
-                <ImageView
-                    android:id="@+id/moreButton"
-                    android:layout_width="@dimen/touch_target_small"
-                    android:layout_height="@dimen/touch_target_small"
-                    android:src="@drawable/ic_more_vert"
-                    app:tint="@color/cosmic_gray"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:contentDescription="@string/cd_menu" />
-
-            </LinearLayout>
-
-            <!-- Main Chat Fragment Container -->
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/cosmic_black" />
+            <ImageView
+                android:id="@+id/moreButton"
+                android:layout_width="@dimen/touch_target_small"
+                android:layout_height="@dimen/touch_target_small"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@color/cosmic_gray"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/cd_menu" />
 
         </LinearLayout>
 
-    </include>
+        <!-- Main Chat Fragment Container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cosmic_black" />
+
+    </LinearLayout>
 
     <!-- Navigation Drawer (Sliding Panel) -->
     <LinearLayout

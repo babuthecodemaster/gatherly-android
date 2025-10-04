@@ -12,6 +12,9 @@ public class Server {
     private Date createdAt;
     private List<Channel> channels;
     private List<ServerMember> members;
+    private String iconUrl;
+    private int memberCount;
+    private boolean online;
 
     // Constructors
     public Server() {}
@@ -88,6 +91,30 @@ public class Server {
 
     public void setMembers(List<ServerMember> members) {
         this.members = members;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
+
+    public int getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 
     @Override

@@ -925,6 +925,16 @@ public class MainChatFragment extends Fragment {
                         });
                     }
                 }
+                
+                @Override
+                public void onStarted() {
+                    android.util.Log.d("MainChatFragment", "🚀 File upload started");
+                }
+                
+                @Override
+                public void onRetrying(int attemptNumber) {
+                    android.util.Log.d("MainChatFragment", "🔄 File upload retrying, attempt: " + attemptNumber);
+                }
             });
             
         } catch (Exception e) {

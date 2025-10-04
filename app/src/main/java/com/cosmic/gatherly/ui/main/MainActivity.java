@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cosmic.gatherly.MinimalApplication;
+import com.cosmic.gatherly.GatherlyApplication;
 import com.cosmic.gatherly.R;
 import com.cosmic.gatherly.data.model.AuthState;
 import com.cosmic.gatherly.data.repository.AuthManager;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
         
         try {
             // Get AuthManager from Application
-            authManager = ((MinimalApplication) getApplication()).getAuthManager();
+            authManager = ((GatherlyApplication) getApplication()).getAuthManager();
             if (authManager == null) {
                 Log.e(TAG, "AuthManager is null, redirecting to auth");
                 navigateToAuth();
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
             logNavigationSource();
             
             Log.d(TAG, "✅ MainActivity initialization completed successfully");
-            Toast.makeText(this, "Welcome back, " + currentUser.getEmail() + "!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Welcome to Gatherly, " + currentUser.getEmail() + "!", Toast.LENGTH_SHORT).show();
             
         } catch (Exception e) {
             Log.e(TAG, "❌ Error during MainActivity initialization", e);
@@ -527,10 +527,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
             Log.e(TAG, "❌ Error logging navigation source", e);
         }
     }
-
-
-
-
 
     /**
      * Performs logout with confirmation dialog

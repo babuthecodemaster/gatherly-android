@@ -13,6 +13,8 @@ public class Message {
     private List<String> reactions;
     private Date createdAt;
     private User author; // For MessageWithAuthor
+    private String authorName; // For fallback data
+    private Date timestamp; // Alternative to createdAt
 
     // Constructors
     public Message() {}
@@ -125,6 +127,22 @@ public class Message {
     
     public boolean hasLegacyAttachments() {
         return attachments != null && !attachments.isEmpty();
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public Date getTimestamp() {
+        return timestamp != null ? timestamp : createdAt;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override

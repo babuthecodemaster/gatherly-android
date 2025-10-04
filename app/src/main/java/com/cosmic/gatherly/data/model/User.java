@@ -10,6 +10,10 @@ public class User {
     private String avatar;
     private UserStatus status;
     private Date createdAt;
+    private String displayName;
+    private String avatarUrl;
+    private boolean online;
+    private Date lastSeen;
 
     public enum UserStatus {
         ONLINE("online"),
@@ -104,6 +108,38 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getDisplayName() {
+        return displayName != null ? displayName : username;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl != null ? avatarUrl : avatar;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isOnline() {
+        return online || (status == UserStatus.ONLINE);
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    public Date getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(Date lastSeen) {
+        this.lastSeen = lastSeen;
     }
 
     @Override
